@@ -1,0 +1,122 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {#% include "headercss_extension.html" %#}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                  <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">System Settings</h4>
+                    <div class="ms-auto text-end">
+                      <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Event</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">
+                            Event
+                          </li>
+                        </ol>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                      <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            
+            <div class="card shadow mb-4">
+                <div class="card-header py-3_xxx">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Matter Category and Samples</h6>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a href="{% url 'civil-matters-entry' %}">Civil Matters</a></li>
+                        <li><a href="{% url 'criminal-matters-entry' %}">Criminal Matters</a></li>
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+              <div class="card-header py-3_xxx">
+                  <div class="d-sm-flex align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Fact & Documents category</h6>
+                  </div>
+              </div>
+              <div class="card-body">
+                  <ul>
+                      <li><a href="{% url 'document-claimant-category' %}">Claimant</a></li>
+                      <li><a href="{% url 'document-defendant-category' %}">Defendant</a></li>
+                  </ul>                  
+              </div>
+          </div>
+
+            <div class="card shadow mb-4">
+              <div class="card-header py-3_xxx">
+                  <div class="d-sm-flex align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Password</h6>
+                  </div>
+              </div>
+              <div class="card-body">
+                  <ul>
+                      <li><a href="{% url 'change-password' %}">Change My Password</a></li>
+                  </ul>
+                  
+              </div>
+            </div>
+
+
+            
+            <div class="card shadow mb-4">
+              <div class="card-header py-3_xxx">
+                  <div class="d-sm-flex align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Activity Log</h6>
+                  </div>
+              </div>
+              <div class="card-body">
+                  <ul>
+                      <li><a href="{% url 'activity_logs' %}">View Logs</a></li>
+                  </ul>
+                  
+              </div>
+            </div>
+
+
+    </div>
+
+
+    
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    {#% include "footerjs_extension.html" %#}
+        <script>
+            
+            $(document).ready(function() {
+
+
+
+            });
+        
+        </script>
+
+    {% endblock footerjs %}

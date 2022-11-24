@@ -1,0 +1,317 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  
+
+{#% include "matter_form_headercss_extension.html" %#}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Matter</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Matter</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Nature of Claim
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card shadow mb-4-old">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Nature of Claim</h6>
+                    </div>
+        
+                    <div class="card-body">    
+                        <form class="" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- <form id="" class=""> -->
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address">File Number</label>
+                                                    <input type="text" class="form-control mb-4-old" name="file_no" id="file_no" value="{{file_no}}" readonly>
+                                                </div>
+
+                                            </div>
+        
+                                            <div class="col-md-12 mb-3">
+                                                <h6> Facts and Documents. </h6><br/>
+                                                <div class="" id="">                                            
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+        
+                                                        </div>                                               
+                                                        <div class="col-md-3">
+                                                            <label for="address">Case Type</label><br/>                                               
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="address">Nature of Claim</label><br/>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div id="dynamicData">                                                
+        
+        
+                                                    </div> 
+                                                </div>
+                                            </div>                                   
+                                        </div>
+                                    </div>
+                                <!-- </form> -->
+                            </div>
+                            <!-- <br/> -->
+                            {{ form.errors }}
+                        </form>
+                            <hr/>
+                            
+                            
+                        <form class="" action="" method="POST">
+                            <div class="form-group row">
+                                {% csrf_token %}
+                                    <div class="col-md-4">
+                                        <label for="address">Matter category</label><br/>
+                                        <select name="category" id="category" class="form-select form-control">
+                                            <option value="Criminal">Criminal</option>
+                                            <option value="Civil">Civil</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="address">Nature of claim</label><br/>
+                                        <input type="text" class="form-control" name="nature_of_claim" id="nature_of_claim" />
+                                    </div>
+
+                        
+                                {{ form.errors }}
+                                    <div class="col-md-2">
+                                        <label for="address">&nbsp;</label><br/>
+                                        <button type="button" name="addToList" id="addToList" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i> Add To List</button>
+                                    </div>
+                            </div>
+                        </form>
+                        <br/>
+
+                        <div class="row mt-3">    
+                            <div class="col-md-12 card-footer">                                                  
+                                <span type="button" id="backPage" class="btn btn-block btn-secondary" value="" />Continue...</span>                                                                
+                            </div>        
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock content %} 
+
+
+{% block footerjs %}
+<!-- ENDS SCRIPTS -->
+<!----- cut off ---->
+{#% include  "matter_form_footercss_extension.html" %#}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+
+        $(document).on('click', '.btn_remove', function(){  
+            var button_id = $(this).attr("id");   
+            // var field_count =  parseInt($('#field_count').val());
+            $('#row'+button_id+'').remove();  
+            // $('#field_count').val(field_count - 1);
+        });
+
+
+        $(".placeholder").select2({
+            placeholder: "Make a Selection",
+            allowClear: true
+        });
+
+
+        data_autoloader();
+        function data_autoloader(){ 
+            let file_no = $('#file_no').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'data-autoload' %}",
+                data: {
+                    file_no:file_no,
+                    page: 'nature_of_claim'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    $('#dynamicData').html('');
+                    $.each(response, function (key, value) { 
+                        // console.log(value);
+                        $('#dynamicData').append('<div class="row"> <div class="col-md-1">\
+                            <input type="hidden" class="form-control" name="id_no" placeholder="" value="'+value['pk']+'" />\
+                        </div>'+
+                        '<div class="col-md-3">'+value['fields']['category']+'</div>'+
+                        '<div class="col-md-6">'+value['fields']['nature_of_claim']+'</div>'+
+                        '<div class="col-md-2">'+
+                        '<h6><span id="'+value['pk']+'" class="btn btn-danger btn-sm deleteDocument"> X </span></h6>'+
+                        '</div></div>');
+                    });
+
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }          
+
+
+        $(document).on('click', '.deleteDocument', function(){  
+            // let id = e.target.id;
+            let id = $(this).attr("id");
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            // console.log("JJJJJJJ");
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'delete-matter-data' %}",
+                data: {
+                    id: id,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    page: 'nature_of_claim'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    data_autoloader();
+                    tryc("success", "Success: Record removed !");
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+        
+        $('#addToList').click(function(e){ 
+            let file_no = $('#file_no').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            let matter_type = $('#category').val();
+            let nature_of_claim = $('#nature_of_claim').val();;
+
+
+            if(matter_type === '' ||  nature_of_claim === ''){
+                tryc("error", "Field cannot be empty!!");
+                return false;
+            }
+            // $('input[type=file]')[0].files[0])
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+            formData.append('nature_of_claim', nature_of_claim);
+            formData.append('category', matter_type); 
+            formData.append('file_no', file_no); 
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'nature-of-claim' file_no %}",
+                data: formData,          
+                processData: false,
+                contentType: false,
+                cache: false,
+                dataSrc: "",
+
+                success:function(response) {
+                    if (response['message']=== 'success'){
+                        data_autoloader();
+                        tryc("success", "Success: Record saved !");
+                        $('#nature_of_claim').val('');
+                        // $("#other_party").val('').trigger('change') ;
+                    }
+                    else{
+                        tryc("error", "Failed: Record not saved !");
+                    }
+                },
+                onerror:function(){
+                    tryc("error", "Failed: Record not saved !");
+                }
+            })
+
+        }); 
+
+        $('#backPage').click(function(e){ 
+            let file_no = $('#file_no').val();
+            window.location.href= '/matter-update/'+file_no;
+
+        }); 
+
+        // File type validation
+        $("#document_claimant").change(function() {
+            var file = this.files[0];
+            var fileType = file.type;
+            var match = ['application/pdf', 'application/msword', 'application/vnd.ms-office', 'image/jpeg', 'image/png', 'image/jpg'];
+            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                tryc("error", "Failed: Record not saved !");
+                $("#file").val('');
+                return false;
+            }
+        });
+
+        $("#document_defendant").change(function() {
+            var file = this.files[0];
+            var fileType = file.type;
+            var match = ['application/pdf', 'application/msword', 'application/vnd.ms-office', 'image/jpeg', 'image/png', 'image/jpg'];
+            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                tryc("error", "Failed: Record not saved !");
+                $("#file").val('');
+                return false;
+            }
+        });
+
+
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

@@ -1,0 +1,338 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {#% include "headercss_extension.html" %#}
+
+    <style>
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+
+        .printview label {
+            font-size: 130%;
+        }
+        .printview span {
+            font-size: 130%;
+        }
+        .printview {
+            padding:30px 100px 30px 100px !important;
+            /* padding-left:150px !important; */
+        }
+    </style>
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                  <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Matter Viwer Hearing</h4>
+                    <div class="m-l-10">
+                        <a id="btn-add-notes" class="btn btn-secondary btn-sm" href="{% url 'matter' %}">
+                        <i class="fas fa-plus-circle">
+                        </i> Matter List </a>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">View</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">
+                            Matter
+                          </li>
+                        </ol>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+            </div>
+                      <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card" style="position: fixed-old;">
+                        <div>
+                            <div class="card-header">
+                                <h6 class="m-0 font-weight-bold text-primary">Updates</h6>
+                            </div>
+                            <div class="card-body-old">
+                                <ul class="list-style-none">
+                                    <li class="d-flex no-block card-body-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                        <a href="#basic_information" class="mb-0 font-medium p-0">Basic Information</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    
+    
+                <div class="col-md-10">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3_xxx pl-80 pr-80">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <label>Case Reports</label>
+                            </div>
+                        </div>
+                        <div class="card-body printview pl-30">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyName">File Number</label> 
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{MatterInfor.file_no}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyName">Case/Suit No</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{MatterInfor.claim_no}} </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyAddress">Client Name</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{MatterInfor.client_contact}}</span>
+                                </div>
+                            </div>     
+                            
+                            <hr>
+
+                            <div class="row">
+                                {% for client_type in Client_Type %}
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyAddress">Client Category</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{client_type.client_type}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <hr>
+
+                            <div class="row">
+                            {% for attorney in Attorney %}
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyAddress">Originating Attorney</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{attorney.originating_attorney}}</span>
+                                </div>
+                            {% endfor %}
+                            </div> 
+
+                            <div class="row">
+                            {% for attorney in Attorney %}
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyAddress">Supervising Attorney</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{attorney.supervising_attorney}}</span>
+                                </div>
+                            {% endfor %}
+                            </div> 
+
+                            <div class="row">
+                            {% for attorney in Attorney %}
+                                <div class="col-md-3 col-sm-2">
+                                    <label for="companyAddress">Referrer Attorney</label>
+                                </div>
+                                <div class="col-md-9 col-sm-10">
+                                    <span for="companyName">{{attorney.referrer}}</span>
+                                </div>
+                            {% endfor %}
+                            </div> 
+                            <hr>
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Coparties</span><br/>                                                                        
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="companyAddress">Relationship</span><br/>
+                                </div>
+                            </div>
+                            {% for coparties in Coparties %}
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span for="companyName">{{coparties.other_party}}</span>                                                                       
+                                </div>
+                                <div class="col-md-5">
+                                    <span for="companyName">{{coparties.other_party_relationship}}</span>
+                                </div>                                
+                            </div>
+                            
+                            {% endfor %}
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Adverse Parties</span><br/>                                                                        
+                                </div>
+                            </div>
+
+                            {% for conflictAdverseParties in ConflictAdverseParties %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span for="companyName">{{conflictAdverseParties.adverse_party}}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Case associated names</span><br/>                                                                        
+                                </div>
+                            </div>
+
+                            {% for conflictAssocFiles in ConflictAssocFiles %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span for="companyName">{{conflictAssocFiles.associated_other_files}}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <hr/>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Facts and Documents</span><br/>                                                                        
+                                </div>
+                            </div>
+
+                            {% for document in myDocuments %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span for="companyName">{{document.document_category}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span for="companyName">{{document.case_type}} document</span>
+                                </div>
+                            </div>
+                            {% endfor %}  
+
+                            <br/>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Nature of claim</span><br/>                                                                        
+                                </div>
+                            </div>
+
+                            {% for NatureOfClaim in NatureOfClaims %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span for="companyName">{{NatureOfClaim.category}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span for="companyName">{{NatureOfClaim.nature_of_claim}} </span>
+                                </div>
+                            </div>
+                            {% endfor %}   
+
+                            <hr/>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="companyName">Case brief</span><br/>                                                                        
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            {% for description in Description %}
+                                <div class="col-md-12 mb-2">
+                                    <span for="companyName"> {{description.description}} </span>                                                             
+                                </div> 
+                            {% endfor %}   
+                            </div>    
+
+
+
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-primary btn-floating btn-lg"
+            id="btn-back-to-top"
+            >
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+    
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    {#% include "footerjs_extension.html" %#}
+        <script>
+            
+            $(document).ready(function() {
+
+
+
+            });
+        
+
+            //Get the button
+                let mybutton = document.getElementById("btn-back-to-top");
+
+                // When the user scrolls down 20px from the top of the document, show the button
+                window.onscroll = function () {
+                scrollFunction();
+                };
+
+                function scrollFunction() {
+                if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+                ) {
+                mybutton.style.display = "block";
+                } else {
+                mybutton.style.display = "none";
+                }
+                }
+                // When the user clicks on the button, scroll to the top of the document
+                mybutton.addEventListener("click", backToTop);
+
+                function backToTop() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                }
+        </script>
+
+    {% endblock footerjs %}

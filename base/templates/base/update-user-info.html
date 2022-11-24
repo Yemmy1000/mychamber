@@ -1,0 +1,193 @@
+    {% extends 'main.html' %} 
+    {% load i18n static %}
+    {% block header %}
+    {% load crispy_forms_tags %}
+        
+    {% endblock header %} 
+        
+    {% block content %}
+
+
+        <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">{{user.username}} Profile</h4>
+              <a type="button" class="btn btn-sm btn-secondary m-l-10" href="{% url 'user-profile' user.id %}">
+                <i class="mdi mdi-plus fs-6"></i> Profile
+              </a>
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Update</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      User Information
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            
+          <form class="form-horizontal" action="" id="UpdateUserForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <input type="hidden" name="user" id="user_id" class="form-control mb-4" id="user" value="{{user.id}}" >
+
+                <div class="col-md-12">
+                  <div class="card m-50">
+                      <!-- <form class="form-horizontal"> -->
+                      <div class="card-body">
+                          <h4 class="card-title mb-5">Basic Info</h4>
+                          <div class="form-group row">
+                              <div class="upload mt-4 pr-md-4 col-sm-6"> 
+                                <img type="file" id="avatar" src="" width="100" />
+                              </div>
+          
+                              <div class="upload col-sm-6">
+                                {{form.avatar}}
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                          <!-- <label for="lname" class="col-sm-3 text-end control-label col-form-label">First Name</label> -->
+                              <div class="col-sm-6">
+                                {{form.last_name|as_crispy_field}}
+                              </div>
+                              <div class="col-sm-6">
+                              {{form.first_name|as_crispy_field}}
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                            <!-- <label for="lname" class="col-sm-3 text-end control-label col-form-label">First Name</label> -->
+                              <div class="col-sm-6">
+                                {{form.dob|as_crispy_field}}
+                                </div>
+                                <div class="col-sm-6">
+                                  {{form.phone|as_crispy_field}}
+                              </div>
+                            </div>
+
+                          <div class="form-group row">
+                              <div class="col-sm-12">
+                                {{form.bio|as_crispy_field}}
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              {{form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                              {{form.username|as_crispy_field}}
+                            </div>
+                        </div>
+                          
+                      </div>
+                  </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card m-50">
+                    <div class="card-body">
+                        <input type="submit" name="SubmitProfileUpdate" id="" class="btn btn-block btn-secondary" value=" Update Profile "/>
+                    </div>
+                    {{form.errors}}
+
+                    {{message.error}}
+                </div>
+              </div> 
+            </div>
+          </form>
+
+        </div>
+        
+
+
+
+
+    {% endblock content %} 
+
+
+
+    {% block footerjs %}
+
+        {#% include "footerjs_extension.html" %#}
+        
+
+<script>
+
+
+$(document).ready(function() {
+
+
+          $("#avatar-clear_id").css("display","none");
+          $("label[for='avatar-clear_id']").css("display","none");
+          let imgURL = $(".upload a").attr('href');
+          console.log(imgURL)
+
+          $("#avatar"). attr("src",imgURL); 
+
+
+            $('#SubmitProfileUpdate').click(function(){
+                let last_name = $('#last_name').val();
+                let first_name = $('#first_name').val();
+                // let form = $('#UpdateProfileForm')
+                let form = document.getElementById('UpdateProfileForm');
+                // let user_id = $('#user_id').val();
+                if(first_name === '' || first_name === ''){
+                  tryc("warning", "Firstname or Lastname cannot be empty!");
+                  return false;
+
+                }
+                // console.log(username);
+                let formData = new FormData(form);
+
+                // for (const [key, value] of formData) {
+                //   console.log(`${key}: ${value}\n`);
+                // }
+                $.ajax({
+                    type: "POST",
+                    // url: "{#% url 'update-profile' user.id %#}",
+                    data: formData,
+                    datatype: 'json',
+                    dataSrc: "",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    success:function(response) {
+                        // console.log(response);
+                        if (response['success']){
+                      
+                            tryc("success", "User created successfully !");
+                            window.location.reload();  
+                        }else{
+                            tryc("success", "User created successfully !");
+                        }
+                        
+                    },
+                    onerror:function(){
+                       
+                        tryc("error", "User creation failed!");
+                    }
+                });
+
+            });
+
+    
+
+    
+    });
+
+</script>
+    {% endblock footerjs %}

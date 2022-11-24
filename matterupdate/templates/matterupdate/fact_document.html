@@ -1,0 +1,417 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  
+
+{#% include "matter_form_headercss_extension.html" %#}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Matter</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Matter</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Fact and Documents
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card shadow mb-4-old">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Facts and Documents</h6>
+                    </div>
+        
+                    <div class="card-body">    
+                        <form class="" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- <form id="" class=""> -->
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address">File Number</label>
+                                                    <input type="text" class="form-control mb-4-old" name="file_no" id="file_no" value="{{file_no}}" readonly>
+                                                </div>
+
+                                            </div>
+        
+                                            <div class="col-md-12 mb-3">
+                                                <h6> Facts and Documents. </h6><br/>
+                                                <div class="" id="">                                            
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+        
+                                                        </div>                                               
+                                                        <div class="col-md-3">
+                                                            <label for="address">Document Type</label><br/>                                               
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="address">Uploaded</label><br/>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="address">Case Type</label><br/>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div id="dynamicData">                                                
+        
+        
+                                                    </div> 
+                                                </div>
+                                            </div>                                   
+                                        </div>
+                                    </div>
+                                <!-- </form> -->
+                            </div>
+                            <!-- <br/> -->
+                            {{ form.errors }}
+                        </form>
+                            <hr/>
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h6>Client Category</h6>
+                                <select name="form-select form-control" id="client_type" name="client_type" style="width: 100%; height: 36px">
+                                    <option value="">Select...</option>
+                                    <option value="Claimant">Claimant</option>
+                                    <option value="Defendant">Defendant</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-8" id="claimant">
+                                <form class="" action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="fieldgroup" id="other_parties">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="address">Claimant Document Type</label><br/>
+                                                <select class="form-select form-control shadow-none" id="document_name_claimant" name="document_name" style="width: 100%; height: 36px">
+                                                    <option value="">Select...</option>
+                                                    {% for claimant in claimants %}
+                                                        <option value="{{claimant.doc_type}}">{{claimant.doc_type}}</option>
+                                                    {% endfor %}
+                                                    <!-- <option value="Originating process">Originating process</option>
+                                                    <option value="Interlocutory application">Interlocutory application</option>
+                                                    <option value="Witness statement and Oath">Witness statement and Oath</option>
+                                                    <option value="Affidavit">Affidavit</option>
+                                                    <option value="Written address">Written address</option>
+                                                    <option value="Amendment">Amendment</option>
+                                                    <option value="Claiment of claim & fact">Claiment of claim & fact</option>
+                                                    <option value="Reply">Reply</option> -->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="address">Upload</label><br/>
+                                                <input type="file" class="form-control" id="docuemnt_claimant" name="document_claimant" />
+                                            </div>
+                                            <!-- <div class="col-md-2">
+                                                <label for="address">&nbsp;</label><br/>
+                                                <button type="button" name="addToList" id="addToList" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i>Add To List</button>
+                                            </div> -->
+                                        </div>
+                                        <br/>                                            
+                                    </div>
+                
+                                    {{ form.errors }}
+                                </form>
+                            </div>
+
+                            <div class="col-md-8" id="defendant">
+                                <form class="" action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="fieldgroup" id="other_parties">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="address">Defendant Document Type</label><br/>
+                                                <select class="form-select form-control shadow-none" id="document_name_defendant" name="document_name" style="width: 100%; height: 36px">
+                                                    <option value="">Select...</option>
+                                                    {% for defendant in defendants %}
+                                                    <option value="{{defendant.doc_type}}">{{defendant.doc_type}}</option>
+                                                    {% endfor %}
+                                                    <!-- <option value="Option1">Statement of defense</option>
+                                                    <option value="Option2">INSO</option>
+                                                    <option value="Option2">Affidavit</option>
+                                                    <option value="Option2">Interlocury Application</option>
+                                                    <option value="Option2">List of Witness</option>
+                                                    <option value="Option2">Reply or point of law</option>                                                     -->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="address">Upload</label><br/>
+                                                <input type="file" class="form-control" id="docuemnt_defendant" name="document_defendant" />
+                                            </div>
+                                            <!-- <div class="col-md-2">
+                                                <label for="address">&nbsp;</label><br/>
+                                                <button type="button" name="addToList" id="addToList_def" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i>Add To List</button>
+                                            </div> -->
+                                        </div>
+                                        <br/>                                            
+                                    </div>
+                
+                                    {{ form.errors }}
+                                </form>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="address">&nbsp;</label><br/>
+                                <button type="button" name="addToList" id="addToList" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i>Add To List</button>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row mt-3">    
+                            <div class="col-md-12 card-footer">                                                  
+                                <span type="button" id="backPage" class="btn btn-block btn-secondary" value="" />Continue...</span>                                                                
+                            </div>        
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock content %} 
+
+
+{% block footerjs %}
+<!-- ENDS SCRIPTS -->
+<!----- cut off ---->
+{#% include  "matter_form_footercss_extension.html" %#}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $(function() {
+            $('#claimant').hide(); 
+            $('#defendant').hide();
+            $('#client_type').change(function(){
+                if($('#client_type').val() == 'Claimant') {
+                    $('#claimant').show(); 
+                    $('#defendant').hide();
+                } else if($('#client_type').val() == 'Defendant'){
+                    $('#claimant').hide(); 
+                    $('#defendant').show(); 
+                }else{
+                    $('#claimant').hide(); 
+                    $('#defendant').hide();
+                } 
+            });
+        });
+
+
+
+        $(document).on('click', '.btn_remove', function(){  
+            var button_id = $(this).attr("id");   
+            // var field_count =  parseInt($('#field_count').val());
+            $('#row'+button_id+'').remove();  
+            // $('#field_count').val(field_count - 1);
+        });
+
+
+        $(".placeholder").select2({
+            placeholder: "Make a Selection",
+            allowClear: true
+        });
+
+
+        data_autoloader();
+        function data_autoloader(){ 
+            let file_no = $('#file_no').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'data-autoload' %}",
+                data: {
+                    file_no:file_no,
+                    page: 'fact_document'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    $('#dynamicData').html('');
+                    $.each(response, function (key, value) { 
+                        // console.log(value);
+                        $('#dynamicData').append('<div class="row"> <div class="col-md-1">\
+                            <input type="hidden" class="form-control" name="id_no" placeholder="" value="'+value['pk']+'" />\
+                        </div>'+
+                        '<div class="col-md-3">'+value['fields']['document_category']+'</div>'+
+                        '<div class="col-md-3"><a href="../../media/'+value['fields']['document']+'" download> '+value['fields']['document'].split('/')[3]+' </a></div>'+
+                        '<div class="col-md-3">'+value['fields']['case_type']+'</div>'+
+                        '<div class="col-md-2">'+
+                        '<h6><span id="'+value['pk']+'" class="btn btn-danger btn-sm deleteDocument"> X </span></h6>'+
+                        '</div></div>');
+                    });
+
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }          
+
+
+        $(document).on('click', '.deleteDocument', function(){  
+            // let id = e.target.id;
+            let id = $(this).attr("id");
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            // console.log("JJJJJJJ");
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'delete-matter-data' %}",
+                data: {
+                    id: id,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    page: 'fact_document'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    data_autoloader();
+                    tryc("success", "Success: Record removed !");
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+        
+        $('#addToList').click(function(e){ 
+            let file_no = $('#file_no').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            let client_type = $('#client_type').val();
+            let document_name = '';
+            let doc = '';
+
+            if($('#client_type').val() == 'Claimant') {
+                doc =  $('input[name=document_claimant]')[0].files[0];
+                document_name = $('#document_name_claimant').val();
+            }else if($('#client_type').val() == 'Defendant')  {
+                doc =  $('input[name=document_defendant]')[0].files[0];
+                document_name = $('#document_name_defendant').val();
+            }
+
+            if(file_no === '' ||  document_name === '' || doc === ''){
+                tryc("error", "Field cannot be empty!!");
+                return false;
+            }
+            // $('input[type=file]')[0].files[0])
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+            formData.append('document_category', document_name);
+            formData.append('document', doc); 
+            formData.append('case_type', client_type); 
+            formData.append('file_no', file_no); 
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'case-fact-documents' file_no %}",
+                data: formData,          
+                processData: false,
+                contentType: false,
+                cache: false,
+                dataSrc: "",
+
+                success:function(response) {
+                    if (response['message']=== 'success'){
+                        data_autoloader();
+                        tryc("success", "Success: Record saved !");
+                        // $('#other_party_relationship').val('');
+                        // $("#other_party").val('').trigger('change') ;
+                        $('#document_name_claimant').val('').trigger('change');
+                        $('#document_name_defendant').val('').trigger('change');
+                        // window.location.reload();                       
+                    }
+                    else{
+                        tryc("error", "Failed: Record not saved !");
+                    }
+                },
+                onerror:function(){
+                    tryc("error", "Failed: Record not saved !");
+                }
+            })
+
+        }); 
+
+        $('#backPage').click(function(e){ 
+            let file_no = $('#file_no').val();
+            window.location.href= '/matter-update/'+file_no;
+
+        }); 
+
+        // File type validation
+        $("#document_claimant").change(function() {
+            var file = this.files[0];
+            var fileType = file.type;
+            var match = ['application/pdf', 'application/msword', 'application/vnd.ms-office', 'image/jpeg', 'image/png', 'image/jpg'];
+            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                tryc("error", "Failed: Record not saved !");
+                $("#file").val('');
+                return false;
+            }
+        });
+
+        $("#document_defendant").change(function() {
+            var file = this.files[0];
+            var fileType = file.type;
+            var match = ['application/pdf', 'application/msword', 'application/vnd.ms-office', 'image/jpeg', 'image/png', 'image/jpg'];
+            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                tryc("error", "Failed: Record not saved !");
+                $("#file").val('');
+                return false;
+            }
+        });
+
+
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

@@ -1,0 +1,413 @@
+    {% extends 'main.html' %} 
+    {% load i18n static %}
+    {% block header %}
+
+        
+    {% endblock header %} 
+        
+    {% block content %}
+
+
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">{{user.email}} Profile</h4>
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Profile
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Basic Information</h4>
+                    </div>
+                    <div class="comment-widgets scrollable">
+                      <!-- Comment Row -->
+                      <div class="d-flex flex-row comment-row mt-0">
+                        <div class="p-2">
+                          <img
+                            src="../../media/{{user.avatar}}"
+                            alt="user"
+                            width="100"
+                            class="rounded-circle"
+                          />
+                        </div>
+                        <div class="comment-text w-100">
+                          <h6 class="font-medium">{{user.last_name}} {{user.first_name}} {% if profile.other_name %} {{profile.other_name}} {% endif %}</h6>
+                          <span class="mb-3 d-block">
+                            {{user.bio}}
+                          </span>
+                          <div class="comment-footer">
+                            <span class="text-muted float-end">DOB: {{user.dob}}</span>
+                            <button type="button" class="btn btn-secondary btn-sm text-white">
+                            {% if not profile.designation %}
+                            Designation: Na
+                            {% else %}
+                            {{profile.designation}}
+                            {% endif %}
+                            </button>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row comment-row">
+                        <div class="comment-text active w-100">
+                          <span class="mb-1 d-block">
+                            Address: {{profile.address}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Phone: {{user.phone}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Email:  {{user.email}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Marital Status:  {{profile.marital_status}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Sex:  {{profile.sex}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Other:  {{user.other}}
+                          </span>
+                          <span class="mb-1 d-block">
+                            Date Joined:  {{user.date_joined}}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card-footer">
+                      <a class="btn btn-sm btn-secondary m-l-10" href="{% url 'update-user-info' user.id %}">
+                        <i class="far fa-edit fs-6"></i> &nbsp; Update
+                      </a>
+                    </div>
+                  </div>
+                  <!-- Card -->
+                    <!-- card new -->
+
+
+                    <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title mb-0">Achievements</h4>
+                      </div>
+                      <ul class="list-style-none">
+                          <li class="d-flex no-block card-body">
+                          <i class="mdi mdi-check-circle fs-4 w-30px mt-1"></i>
+                          <div>
+                              <a href="#" class="mb-0 font-medium p-0">University of Somewhere</a>
+                              <span class="text-muted">dolor sit amet, consectetur adipiscing</span>
+                          </div>
+                          <div class="ms-auto">
+                              <div class="tetx-right">
+                              <h5 class="text-muted mb-0">20</h5>
+                              <span class="text-muted font-16">Jan</span>
+                              </div>
+                          </div>
+                          </li>
+                          <li class="d-flex no-block card-body border-top">
+                          <i class="mdi mdi-gift fs-4 w-30px mt-1"></i>
+                          <div>
+                              <a href="#" class="mb-0 font-medium p-0">Somewhere Grammar School</a
+                              >
+                              <span class="text-muted">Secondary School</span
+                              >
+                          </div>
+                          <div class="ms-auto">
+                              <div class="tetx-right">
+                              <h5 class="text-muted mb-0">11</h5>
+                              <span class="text-muted font-16">Jan</span>
+                              </div>
+                          </div>
+                          </li>
+                          <li class="d-flex no-block card-body border-top">
+                          <i class="mdi mdi-plus fs-4 w-30px mt-1"></i>
+                          <div>
+                              <a href="#" class="mb-0 font-medium p-0">Somethong Primary School</a>
+                              <span class="text-muted">Primary</span>
+                          </div>
+                          <div class="ms-auto">
+                              <div class="tetx-right">
+                              <h5 class="text-muted mb-0">19</h5>
+                              <span class="text-muted font-16">Jan</span>
+                              </div>
+                          </div>
+                          </li>
+  
+                          
+                      </ul>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+
+                  <!-- card new -->
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title mb-0">Education</h4>
+                    </div>
+                    <ul class="list-style-none">
+                      <li class="d-flex no-block card-body">
+                        <i class="fas fa-balance-scale fs-4 w-30px mt-1"></i>
+                        <div>
+                          <a href="#" class="mb-0 font-medium p-0">{{profile.tertiary_school2}}</a>
+                          <span class="text-muted">Tertiary School 2</span>
+                        </div>
+                        <div class="ms-auto">
+                          <div class="tetx-right">
+                            <h5 class="text-muted mb-0">{{profile.tertiary_school2_year|date:"M"}}</h5>
+                            <span class="text-muted font-16">{{profile.tertiary_school2_year|date:"Y"}}</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="d-flex no-block card-body">
+                        <i class="fas fa-book fs-4 w-30px mt-1"></i>
+                        <div>
+                          <a href="#" class="mb-0 font-medium p-0">{{profile.tertiary_school1}}</a>
+                          <span class="text-muted">Tertiary School 1</span>
+                        </div>
+                        <div class="ms-auto">
+                          <div class="tetx-right">
+                            <h5 class="text-muted mb-0">{{profile.tertiary_school1_year|date:"M"}}</h5>
+                            <span class="text-muted font-16">{{profile.tertiary_school1_year|date:"Y"}}</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="d-flex no-block card-body border-top">
+                        <i class="fas fa-bookmark fs-4 w-30px mt-1"></i>
+                        <div>
+                          <a href="#" class="mb-0 font-medium p-0">{{profile.secondary_school}}</a>
+                          <span class="text-muted">Secondary School</span>
+                        </div>
+                        <div class="ms-auto">
+                          <div class="tetx-right">
+                            <h5 class="text-muted mb-0">{{profile.secondary_school_year|date:"M"}}</h5>
+                            <span class="text-muted font-16">{{profile.secondary_school_year|date:"Y"}}</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="d-flex no-block card-body border-top">
+                        <i class="fas fa-binoculars fs-4 w-30px mt-1"></i>
+                        <div>
+                          <a href="#" class="mb-0 font-medium p-0">{{profile.primary_school}}</a>
+                          <span class="text-muted">Primary</span>
+                        </div>
+                        <div class="ms-auto">
+                          <div class="tetx-right">
+                            <h5 class="text-muted mb-0">{{profile.primary_school_year|date:"M"}}</h5>
+                            <span class="text-muted font-16">{{profile.primary_school_year|date:"Y"}}</span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                    <div class="card-footer">
+                      <a class="btn btn-sm btn-secondary m-l-10" href="{% url 'update-profile' user.id %}">
+                        <i class="far fa-edit fs-6"></i> &nbsp; Update
+                      </a>
+                    </div>
+
+
+                  </div>
+                  <!-- card -->
+                  <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title mb-0">Activity Box</h4>
+                          <div class="mt-3">
+                          <div class="d-flex no-block align-items-center">
+                              <span>81% Clicks</span>
+                              <div class="ms-auto">
+                              <span>125</span>
+                              </div>
+                          </div>
+                          <div class="progress">
+                              <div
+                              class="progress-bar progress-bar-striped"
+                              role="progressbar"
+                              style="width: 81%"
+                              aria-valuenow="10"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              ></div>
+                          </div>
+                          </div>
+                          <div>
+                          <div class="d-flex no-block align-items-center mt-4">
+                              <span>72% Uniquie Clicks</span>
+                              <div class="ms-auto">
+                              <span>120</span>
+                              </div>
+                          </div>
+                          <div class="progress">
+                              <div
+                              class="progress-bar progress-bar-striped bg-success"
+                              role="progressbar"
+                              style="width: 72%"
+                              aria-valuenow="25"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              ></div>
+                          </div>
+                          </div>
+                          <div>
+                          <div class="d-flex no-block align-items-center mt-4">
+                              <span>53% Impressions</span>
+                              <div class="ms-auto">
+                              <span>785</span>
+                              </div>
+                          </div>
+                          <div class="progress">
+                              <div
+                              class="progress-bar progress-bar-striped bg-info"
+                              role="progressbar"
+                              style="width: 53%"
+                              aria-valuenow="50"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              ></div>
+                          </div>
+                          </div>
+                          <div>
+                          <div class="d-flex no-block align-items-center mt-4">
+                              <span>3% Online Users</span>
+                              <div class="ms-auto">
+                              <span>8</span>
+                              </div>
+                          </div>
+                          <div class="progress">
+                              <div
+                              class="progress-bar progress-bar-striped bg-danger"
+                              role="progressbar"
+                              style="width: 3%"
+                              aria-valuenow="75"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              ></div>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+ 
+
+        </div>
+        
+
+
+
+
+
+
+
+
+    {% endblock content %} 
+
+
+
+    {% block footerjs %}
+
+        {#% include "footerjs_extension.html" %#}
+        
+
+<script>
+
+
+$(document).ready(function() {
+    // $("#createUser").modal();
+    $('#createUser').on('shown.bs.modal', function() {  
+            // var reference_tag = $(e.relatedTarget); 
+            // var fsid = reference_tag.data('id');
+            // var modalID = $(this).attr('id');
+
+            $('#invalid-feedback-uname').css("display", "none");
+            // $('.invalid-feedback-mail').css("display", "none");
+            // $('.invalid-feedback-ugrp').css("display", "none");
+            // $('.invalid-feedback-uname').html('Please correct the error');
+
+
+            $('#addUser').click(function(){
+                let username = $('#username').val();
+                let email = $('#email').val();
+                let password = $('#password').val();
+                let usergroup = $('#usergroup').val();
+                let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+                if(username === ''){
+                    $('#invalid-feedback-uname').html('Please correct the error');
+                    // $('#invalid-feedback-uname').css("color", "red");
+                    // $('#invalid-feedback-uname').css({
+                    //     display: "block",
+                    //     color: "red",
+                    //     });
+                        // console.log('hfhfhfh');
+                }
+                // console.log(username);
+               
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add-new-user' %}",
+                    data: {
+                        csrfmiddlewaretoken: csrfmiddlewaretoken,
+                        username: username,
+                        email: email,
+                        password: password,
+                        usergroup: usergroup,
+                    },
+                    datatype: 'json',
+                    dataSrc: "",
+
+                    success:function(response) {
+                        // console.log(response);
+                        if (response['success']){
+
+                            $('#username').val('');
+                            $('#password').val('');
+                            $('#email').val('');                          
+                            tryc("success", "User created successfully !");
+                            $('#createUser').modal('hide');
+                        }else{
+                            tryc("success", "User created successfully !");
+                        }
+                        
+                    },
+                    onerror:function(){
+                       
+                        tryc("error", "User creation failed!");
+                    }
+                });
+
+            });
+
+    
+
+        });
+
+
+    
+
+});
+
+</script>
+    {% endblock footerjs %}

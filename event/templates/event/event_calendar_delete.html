@@ -1,0 +1,67 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {% include "headercss_extension.html" %}
+    <link rel="stylesheet" href="{% static 'vendor/fullcalendar/fullcalendar.min.css' %}">
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Daily Task</h1>                      
+                <a class="btn btn-primary btn-sm" id="addTask" href="{% url 'create-task' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Event</a>
+                <!-- <button > New Task</button> -->
+            </div>
+
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3_xxx">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Event</h6> 
+                        <div>                  
+                            <a class="badge badge-secondary badge-sm p-2" id="addTask" href="{% url 'event' %}"><i class="fas fa-list text-gray-200"></i> List </a>
+                            <a class="badge badge-secondary badge-sm p-2" id="addTask" href="{% url 'event-card' %}"><i class="far fa-credit-card text-gray-200"></i> Card </a>
+                            <a class="badge badge-dark badge-sm p-2" id="addTask" href="{% url 'event-calendar'%}"><i class="fas far fa-calendar-alt text-gray-200"></i> Calendar </a>
+                        </div> 
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="fc-overflow">
+                        <div id="myEvent"></div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!----- cut off ---->
+    <script src="{% static 'vendor/app/app.min.js' %}"></script>
+    <script src="{% static 'vendor/fullcalendar/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'js/event/calendar.js' %}"></script>
+
+        <script>
+            
+            $(document).ready(function() {
+
+ 
+                
+      
+            });
+        
+        </script>
+
+    {% endblock footerjs %}

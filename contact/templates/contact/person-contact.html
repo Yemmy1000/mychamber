@@ -1,0 +1,221 @@
+{% extends 'main.html' %} 
+{% load i18n static %}
+
+{% block header %}
+
+{% include "header_plugins_extension.html" %}
+
+{% endblock header %} 
+
+{% block content %}
+
+
+
+
+
+	    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">Person</h4>
+              <div class="m-l-10">
+                <a name="updatePersonalContact" id="updatePersonalContact" class="btn btn-block btn-secondary btn-sm" href="{% url 'create-person' %}" ><i class="fas fa-plus-circle"></i> New Contact </a>
+              </div>
+
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Contact</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Person
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Contact</h6>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="row">
+                        <div class="col-sm-12 text-center loader">
+                            <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                        </div>
+                    </div> -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered staffDatatable" id="staffDatatable" width="100%" cellspacing="0">
+                            <thead>
+                                <th>Avatar</th>
+                                <th>First Name</th>
+                                <th>Family Name</th>
+                                <th>Home Address</th>
+                                <th>Phone</th>
+                                <th>Sex</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            <div class="modal fade" id="removePersonContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Remove Record?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form class="formRemoveRec" id="formRemoveRec" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="modal-body ">                            
+                                <div class="card-body col-12"> 
+                                    <p>Are you sure you want to delete Record?</p>         
+                                    <div>Record Key: <span id="recKey"></span></div>
+                                    <div>Name: <span id="recName"></span></div>
+                                    <!-- <input type="hidden" name="rec_key" id="rec_key" /> -->
+                                </div>                                                  
+                            </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                            <button class="btn btn-danger" id="btn-Remove-Contact" type="button" data-dismiss="modal">Remove!</button>
+                            <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="modal fade" id="viewPersonContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Remove Record?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">                        
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-danger" href="#">Remove!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+{% endblock content %}
+
+
+{% block footerjs %}
+
+
+    {% include "footer_plugins_extension.html" %}
+
+    <script>let tabelName = 'staffDatatable';  </script>     
+    <script src="{% static 'js/contact/person_contact_data_table.js' %}"></script>
+
+
+<script>
+      
+    $(document).ready(function() {
+
+// fill_person_contact_table();
+
+        $('#removePersonContact').on('shown.bs.modal', function(e) {  
+            var reference_tag = $(e.relatedTarget); 
+            var fsid = reference_tag.data('id');
+            //   var usid = <?php echo $usid; ?>; 
+            // console.log(fsid) ; 
+            $.ajax({
+                type: "GET",
+                url: "{% url 'person-popup' %}",
+                data: {rec_id: fsid},
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response[0]['fields']);
+                    let data = response[0]['fields'];
+                    let key = response[0]['pk'];
+                    $('#recName').html(`${data['firstName']} ${data['familyName']}`);
+                    $('#recKey').html(key);
+                    // $('#rec_key').val(key);
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            });
+        });
+
+        $('#btn-Remove-Contact').click(function(e){ 
+            let dkey = $('#recKey').html();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            // alert(dkey)                                
+            let form = $('#formRemoveRec')[0];
+            let formdata = new FormData(form);
+            // console.log(csrfmiddlewaretoken);
+            // $("#formRemoveRec").submit();
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'delete-person-contact' %}",
+                data: {
+                    dkey: dkey,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response[0]['fields']);
+                    console.log(response);
+                    tryc("success", "Success: Record removed !");
+
+                    // fill_table(usid);                             
+                    $('#removeBody').html(''); 
+                    window.location.href="{% url 'person-contact' %}";
+                    $('#personContactDatatable').DataTable().destroy();
+                    fill_person_contact_table();                               
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+
+        $(document).ajaxStart(function(){
+            $(".loading").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+        });
+    });
+
+</script>
+
+
+{% endblock footerjs %}

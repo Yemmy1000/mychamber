@@ -1,0 +1,68 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Daily Task - Update</h1>                      
+            <a class="btn btn-primary" id="addTask" href="{% url 'create-task' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Task</a>
+            <!-- <button > New Task</button> -->
+        </div>
+
+        <form class="" action="" method="POST">
+            {% csrf_token %}
+               
+                <input class="form-control" type="hidden" name="host" id="host" aria-describedby="host" value="{{request.user.id}}">
+
+            <div class="form-group">
+                {{form.title|as_crispy_field}}
+            </div>
+            <div class="form-group">
+                {{form.description|as_crispy_field}}
+            </div>
+            <div class="form-group">
+
+                {{form.status|as_crispy_field}}
+            </div>
+
+            <div class="form-group">
+                                            
+                {% if messages %}
+                <div class="messages1">
+                    {% for message in messages %}
+                    <span{% if message.tags %} class="{{ message.tags1 }}"{% endif %}>{{ message }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+               
+            </div>
+            {{ form.errors }}
+            <!-- {{ form.non_field_errors}} -->
+            <!-- <button type="submit" class="btn btn-primary btn-user btn-block"> </button> -->
+            <div class="row">                    
+                <div class="col-lg-6">
+                    <input type="submit" class="btn btn-block btn-secondary" value="Update Task!"/>
+                </div>            
+                <div class="col-lg-6">                
+                    <a class="btn btn-block btn-warning text-black" href="{% url 'task' %}" >Go back</a>
+                </div>
+            </div>
+            <!-- <hr> -->
+    
+        </form> 
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+
+    {% endblock footerjs %}

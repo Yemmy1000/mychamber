@@ -1,0 +1,520 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {#% include "headercss_extension.html" %#}
+
+    <style>
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+    </style>
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                  <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Court Hearing</h4>
+                    <div class="m-l-10">
+                        <a id="btn-add-notes" class="btn btn-secondary btn-sm" href="{% url 'matter' %}">
+                        <i class="fas fa-plus-circle">
+                        </i> Matter List </a>
+                    </div>
+                    <div class="ms-auto text-end">
+                      <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Court</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">
+                            Appearrance
+                          </li>
+                        </ol>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+            </div>
+                      <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card" style="position: fixed-old;">
+                        <div>
+                            <div class="card-header">
+                                <h6 class="m-0 font-weight-bold text-primary">Steps</h6>
+                            </div>
+                            <div class="card-body-old">
+                                <ul class="list-style-none">
+                                    <li class="d-flex no-block card-body-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                        <a href="#basic_information" class="mb-0 font-medium p-0">Basic Information</a>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                        <a href="#attorney" class="mb-0 font-medium p-0">Attorney</a>
+                                        </div>
+                                    </li>
+                                        <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#co_parties" class="mb-0 font-medium p-0">Co-parties</a>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#adverse_party" class="mb-0 font-medium p-0">Adverse Party</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#other_names" class="mb-0 font-medium p-0">Other Name</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#facts_and_documents" class="mb-0 font-medium p-0">Fact & Documents</a>
+                                        </div>
+                                    </li>
+
+                                    <!-- <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#" class="mb-0 font-medium p-0">Nature of Claim (Civil)</a>
+                                        </div>
+                                    </li> -->
+
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#nature_of_claim" class="mb-0 font-medium p-0">Nature of Claim </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#case_brief" class="mb-0 font-medium p-0">Case brief</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                        <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                        <div>
+                                            <a href="#assignee" class="mb-0 font-medium p-0">Assignee</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    
+    
+                <div class="col-md-9">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+                                <div class="ms-auto text-end">
+                                    <a href="{% url 'update-matter-info' file_no %}"><i class="fas fa-edit fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyName">File Number</label><br/>
+                                        <span for="companyName">{{MatterInfor.file_no}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyAddress">Client Full Name</label><br/>
+                                        <span for="companyAddress">{{MatterInfor.client_contact}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyName">Case/Suit No</label><br/>
+                                        <span for="companyName">
+                                            {% if MatterInfor.claim_no %}
+                                                {{MatterInfor.claim_no}} 
+                                            {% else %}
+                                                Nil <small class="text-danger">(This is required!)</small>
+                                            {% endif %}                                                                         
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyName">Subject Matter</label><br/>
+                                        <span for="companyName">{{MatterInfor.title}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyAddress">Date Created </label><br/>
+                                        <span for="companyAddress">{{MatterInfor.created}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyAddress">Last Updated</label><br/>
+                                        <span for="companyAddress">{{MatterInfor.updated}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                            
+                    <div class="card shadow mb-3">
+                      <div class="card-header py-3_xxx">
+                          <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Client Category</h6>
+                            <div class="ms-auto text-end">
+                                <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a>
+                                <a href="{% url 'client-category' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <ul>
+                            {% for client_type in Client_Type %}
+                            <li class="d-flex no-block border-top">
+                                <span class="">{{client_type.client_type}}</span> 
+                                <div class="ms-auto text-end"><small>{{client_type.created|date}}</small></div>
+                            </li>
+                            
+                            {% endfor %}
+                          </ul>
+                      </div>
+                    </div>
+
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Attorney</h6>
+                                <div class="ms-auto text-end">
+                                    <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a>
+                                    <a href="{% url 'case-attorney' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body"> 
+                                {% for attorney in Attorney %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Originating: {{attorney.originating_attorney}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            Referrer: {{attorney.referrer}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            Supervising: {{attorney.supervising_attorney}}
+                                        </div>
+                                    </div>  
+                                    <div class="ms-auto text-end"><small>{{attorney.created|date}}</small></div>
+                                
+                                {% endfor %}
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Co-parties</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'client-coparties' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-11 mx-auto">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span for="companyName">Relationship</span><br/>                                                                        
+                                    </div>
+                                    <div class="col-md-5">
+                                        <span for="companyAddress">Co-Parties</span><br/>
+                                    </div>
+                                </div>
+                                {% for coparties in Coparties %}
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span for="companyName">{{coparties.other_party_relationship}}</span>                                                                       
+                                    </div>
+                                    <div class="col-md-5">
+                                        <span for="companyName">{{coparties.other_party}}</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="ms-auto text-end"><small>{{coparties.created|date}}</small></div>                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                {% endfor %}
+                                
+                            </div>                       
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Adverse parties</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'client-adverse-parties' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>                                
+                                {% for conflictAdverseParties in ConflictAdverseParties %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span for="companyName">{{conflictAdverseParties.adverse_party}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="ms-auto text-end"><small>{{conflictAdverseParties.created|date}}</small></div>                                        
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
+                            </ul>                          
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3" id="other_names">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Case associated names</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'case-associate-names' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>                                
+                                {% for conflictAssocFiles in ConflictAssocFiles %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span for="companyName">{{conflictAssocFiles.associated_other_files}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="ms-auto text-end"><small>{{conflictAssocFiles.created|date}}</small></div>                                        
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
+                            </ul>                          
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3" id="facts_and_documents">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Facts & Documents</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'case-fact-documents' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                                {% for document in myDocuments %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span for="companyName">{{document.document_category}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span for="companyName">{{document.case_type}} document</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="ms-auto text-end"><small>{{document.created|date}}</small></div>                                        
+                                    </div>
+                                </div>
+                                {% endfor %}                                
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3" id="nature_of_claim">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Nature of claim</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'nature-of-claim' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% for NatureOfClaim in NatureOfClaims %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span for="companyName">{{NatureOfClaim.category}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span for="companyName">{{NatureOfClaim.nature_of_claim}} </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="ms-auto text-end"><small>{{NatureOfClaim.created|date}}</small></div>                                        
+                                </div>
+                            </div>
+                            {% endfor %}                          
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3" id="case_brief">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Case brief</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="#"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    <a href="{% url 'case-brief' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                           
+                            {% for description in Description %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <span for="companyName"> {{description.description}} </span>                                                                      
+                                </div>
+                                <div class="col-md-2 ms-auto text-end">
+                                    <small>{{description.created|date}}</small>
+                                    <a href="case-brief-edit/{{description.id}}"><i class="fas fa-edit fs-4 w-30px"></i></a>
+                                </div> 
+                                <!-- <div class="">
+                                                                           
+                                </div>                                 -->
+                            </div>
+                            
+                            {% endfor %}                           
+                        </div>
+                      </div>
+
+                      <div class="card shadow mb-3" id="assignee">
+                        <div class="card-header py-3_xxx">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Assignee</h6>
+                                <div class="ms-auto text-end">
+                                    <!-- <a href="case-assignee-edit/{{assignee.personnel}}"><i class="fas fa-edit fs-4 w-30px"></i></a> -->
+                                    {% if not Assignee %}
+                                    <a href="{% url 'case-assignee' file_no %}"><i class="fas fa-plus-square fs-4 w-30px"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            {% for assignee in Assignee %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <span for="companyName"> {{assignee.personnel}} </span>                                                                       
+                                </div>
+                                <div class="col-md-4 ms-auto text-end">
+                                    <a href="case-assignee-edit/{{assignee.id}}"><i class="fas fa-edit fs-4 w-30px"></i></a>
+                                    <div class="ms-auto text-end"><small>{{assignee.created}}</small></div>                                        
+                                </div>                                
+                            </div>
+                            
+                            {% endfor %}  
+                                               
+                        </div>
+                      </div>
+
+                    
+
+
+                </div>
+    
+    
+            </div>
+            
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-primary btn-floating btn-lg"
+            id="btn-back-to-top"
+            >
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+    
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    {#% include "footerjs_extension.html" %#}
+        <script>
+            
+            $(document).ready(function() {
+
+
+
+            });
+        
+
+            //Get the button
+                let mybutton = document.getElementById("btn-back-to-top");
+
+                // When the user scrolls down 20px from the top of the document, show the button
+                window.onscroll = function () {
+                scrollFunction();
+                };
+
+                function scrollFunction() {
+                if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+                ) {
+                mybutton.style.display = "block";
+                } else {
+                mybutton.style.display = "none";
+                }
+                }
+                // When the user clicks on the button, scroll to the top of the document
+                mybutton.addEventListener("click", backToTop);
+
+                function backToTop() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                }
+        </script>
+
+    {% endblock footerjs %}

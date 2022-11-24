@@ -1,0 +1,63 @@
+{% extends 'main.html' %} 
+{% load static %} 
+    
+    
+    
+    {% block header %}
+
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Daily Task</h1>                      
+                <a class="btn btn-primary" id="addTask" href="{% url 'create-task' %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Task</a>
+                <!-- <button > New Task</button> -->
+            </div>
+
+            
+
+    <form class="user" method="POST" > 
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="custom-control-label1" for="task-priority">Title</label>
+            <input class="form-control" name="title" id="taskTitle" aria-describedby="taskname" required placeholder="Task 1" value="{{ form.title.value }}">
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label1" for="task-priority">Description</label>
+            <textarea class="form-control" name="description" id="taskDescription" required placeholder="Some description...">{{ form.description.value }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label1" for="task-priority">Priority</label>
+            <select class="form-control" name="priority" id="taskPriority" required>
+                {% for priority in form.status %}
+                    {{priority}}
+                {% endfor %}
+            </select>
+            <!-- {{form.status}}             -->
+        </div>
+
+        {% if error %}
+        <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+                <label style="color:red" >{{ error }}</label>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <button type="submit" class="btn btn-warning btn-user btn-block"> Update Task </button>
+        <hr>
+ 
+    </form> 
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+
+    {% endblock footerjs %}

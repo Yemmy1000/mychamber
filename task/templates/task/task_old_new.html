@@ -1,0 +1,293 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {% include "headercss_extension.html" %}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Daily Task</h1>                      
+                <a class="btn btn-primary" id="addTask" href="{% url 'create-task' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Task</a>
+                <!-- <button > New Task</button> -->
+            </div>
+
+            <div class="row">
+                
+
+
+                    {% for task in tasks %}
+                        {% if request.user == task.host %}
+
+                            <div class="col-lg-4">
+                                <!-- Dropdown Card Example -->
+                                <div class="card shadow mb-4 border-bottom-success">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">{{task.title}}</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Action:</div>
+                                                <a class="dropdown-item clsRemoveTask" data-id="{{task.id}}" data-toggle="modal" data-target="#viewTaskModal" href="#">View</a>
+                                                <a class="dropdown-item clsUpdateTask" id="updateTask"  href="update-task/{{task.id}}">Update</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item clsDeleteTask" data-id="{{task.id}}" data-toggle="modal" data-target="#removeTaskModal" href="#" style="color:red;">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        {{task.description|truncatewords:20}}
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-sm-flex align-items-center justify-content-between">
+                                            <div class="" style="font-size: 80%;">Created On: {{task.created}} </div>
+                                            <div class="" style="font-size: 80%;">Priority: {{task.status}} </div>                                    
+                                            <!-- <button > New Task</button> -->
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div> 
+
+                        {% endif%} 
+
+                    {% empty %}
+
+                        <p>There are no tasks for you.</p>
+
+                    {% endfor %}                                         
+
+ 
+                
+            </div>
+
+
+    <!-- <form class="user" method="post" >
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control form-control-user"
+                    name="username"
+                id="exampleInputUsername" aria-describedby="usernameHelp"
+                placeholder="Enter username...">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control form-control-user"
+                    name="password"
+                id="exampleInputPassword" placeholder="Password">
+        </div>
+        {% if error %}
+        <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+                <label style="color:red" >{{ error }}</label>
+            </div>
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+                <input type="checkbox" class="custom-control-input" id="customCheck">
+                <label class="custom-control-label" for="customCheck">Remember
+                    Me</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block">
+            Login
+        </button>
+        <hr>
+        <a href="index.html" class="btn btn-google btn-user btn-block">
+            <i class="fab fa-google fa-fw"></i> Login with Google
+        </a>
+        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+        </a>
+    </form> -->
+
+    <div class="modal fade" id="removeTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remove Task?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="formTaskForm" id="formTaskForm" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="modal-body ">                            
+                        <div class="card-body col-12"> 
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="taskTitle">Title: </label>
+                                        <span id="taskTitle_removeTaskModal"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="taskdescription">Description: </label><br/>
+                                        <textarea class="form-control mb-4" id="taskDescription_removeTaskModal" rows="5"></textarea>
+                                        <!-- <span id="taskDescription"></span> -->
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-12">
+                                    <label for="taskStatus">Status: </label>
+                                    <span class="taskStatus_removeTaskModal"></span>
+                                </div>
+                                <input type="text" class="taskID" />
+                            </div>
+                        </div>                                                  
+                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                    <button class="btn btn-danger" id="btn-Remove-Task" type="button" data-dismiss="modal">Remove!</button>
+                    <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" id="viewTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Task View</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="formTaskForm" id="formTaskForm" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="modal-body ">                            
+                        <div class="card-body col-12"> 
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="taskTitle">Title: </label>
+                                        <span class="taskTitle_viewTaskModal"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="taskdescription">Description: </label><br/>
+                                        <textarea class="form-control mb-4" id="taskDescription_viewTaskModal" rows="5" readonly></textarea>
+                                        <!-- <span id="taskDescription"></span> -->
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-12">
+                                    <label for="taskStatus">Status: </label>
+                                    <span id="taskStatus_viewTaskModal"></span>
+                                </div>
+                                <input type="hidden" class="taskID" />
+                            </div>
+                        </div>                                                  
+                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                    <button class="btn btn-danger" id="btn-View-Task" type="button" data-dismiss="modal">Remove!</button>
+                    <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!----- cut off ---->
+        <script>
+            
+            $(document).ready(function() {
+
+        // fill_person_contact_table();
+                $('#viewTaskModal, #removeTaskModal').on('shown.bs.modal', function(e) {  
+                    var reference_tag = $(e.relatedTarget); 
+                    var fsid = reference_tag.data('id');
+                    var modalID = $(this).attr('id');
+                    // modalID = '#'+modalID;
+                    console.log(modalID);
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{% url 'task-popup' %}",
+                        data: {rec_id: fsid},
+                        datatype: 'json',
+                        dataSrc: "",
+
+                        success:function(response) {
+                            // console.log(response);
+                            let data = response[0]['fields'];
+                            let key = response[0]['pk'];
+                            $('#taskTitle_'+modalID+'').html(`${data['title']}`);
+                            // $('textarea#taskDescription').empty();
+                            $('#taskDescription_'+modalID+'').html(`${data['description']}`);
+                            $('.taskStatus_'+modalID+'').html(`${data['status']}`);
+                            $('.taskID').val(key);
+                            // console.log(`${data['description']}`);
+                        },
+                        onerror:function(){
+                            $('#process').html('... error loading...');
+                        }
+                    });
+                });
+
+                $('#btn-Remove-Task').click(function(e){ 
+                    let dkey = $('#taskID').val();
+                    let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+                    $.ajax({
+                        type: "POST",
+                        // data: formData,
+                        url: "{% url 'delete-task' %}",
+                        data: {
+                            dkey: dkey,
+                            csrfmiddlewaretoken: csrfmiddlewaretoken,
+                        },                        
+                        datatype: 'json',
+                        dataSrc: "",
+
+                        success:function(response) {
+                            // console.log(response[0]['fields']);
+                            console.log(response);
+                            tryc("success", "Success: Task removed !");
+
+                            // fill_table(usid);                             
+                            // $('#removeBody').html(''); 
+                            window.location.href="{% url 'task' %}";                            
+                        },
+                        onerror:function(){
+                            $('#process').html('... error loading...');
+                        }
+                    })
+
+                }); 
+
+      
+            });
+        
+        </script>
+
+    {% endblock footerjs %}

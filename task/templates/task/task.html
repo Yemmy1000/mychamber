@@ -1,0 +1,620 @@
+{% extends "main.html" %} 
+{% load static %}
+{% block header %}
+
+{% endblock header %} 
+
+{% block content %}
+
+
+
+
+
+	<div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">Daily Task</h4>
+              <div class="m-l-10">
+                <a class="btn btn-block btn-secondary btn-sm"
+                    href="#" data-bs-toggle="modal" data-bs-target="#CreateTaskModal"
+                    aria-expanded="false">
+                    <i class="fas fa-plus-circle"></i> New Task
+                </a>
+              </div>
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Task</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Task
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 text-center loader">
+                    <img class="loading" src="../media/loading.svg" style="width:7%;" alt="">
+                </div>
+            </div>
+            <div id="dynamicData">
+                <div class="row">
+
+                </div>
+            </div>
+
+        </div>
+        
+
+
+        <div class="modal fade" id="DeleteTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Task ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 text-center loader">
+                                <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center loader">
+                                <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form action="" id="DeleteModalForm" method="POST">   
+                                {% csrf_token %}
+                                <input type="hidden" name="host_id_" id="host_id_" class="form-control mb-4" value="{{user.id}}" readonly/>
+                                <input type="hidden" name="taskID" id="taskID" class="form-control mb-4" readonly/>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Title</label>
+                                        <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="taskTitle_" id="taskTitle_" 
+                                        aria-describedby="taskname" placeholder="" readonly/>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="taskDescription_" id="taskDescription_" readonly></textarea>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Priority</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="taskPriority_" id="taskPriority_" readonly>
+                                                <option value="">Select...</option>
+                                                <option value="Urgent">Urgent</option>
+                                                <option value="Important">Important</option>
+                                                <option value="Normal">Normal</option>
+                                            </select>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </form> 
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                        <button class="btn btn-secondary" id="btn-Delete-Task" 
+                        onclick="" type="button" data-dismiss="modal">Yes Delete!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="CreateTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form action="" method="POST">   
+                                {% csrf_token %}
+                                <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+                            
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Title</label>
+                                        <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="title" id="taskTitle" 
+                                        aria-describedby="taskname" placeholder="" required/>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="description" id="taskDescription" required></textarea>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Priority</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="priority" id="taskPriority" required>
+                                                <option value="">Select...</option>
+                                                <option value="Urgent">Urgent</option>
+                                                <option value="Important">Important</option>
+                                                <option value="Normal">Normal</option>
+                                            </select>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </form> 
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                        <button class="btn btn-secondary" id="btn-Create-Task" 
+                        onclick="" type="button" data-dismiss="modal">Yes Create!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="like_button_container"></div> -->
+
+        <div class="modal fade" id="UpdateTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 text-center loader">
+                                <!-- <img class="loading" src="../media/loading.svg" style="width:10%;" alt=""> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form action="" id="UpdateForm" method="POST">   
+                                {% csrf_token %}
+                                <input type="hidden" name="host_id_" id="host_id_" class="form-control mb-4" value="{{user.id}}" readonly/>
+                                <input type="hidden" name="task_id_" id="task_id_" class="form-control mb-4" readonly/>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Title</label>
+                                        <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="taskTitle_" id="taskTitle_" 
+                                        aria-describedby="taskname" placeholder="" required/>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="taskDescription_" id="taskDescription_" required></textarea>
+                                        </div>
+                                    </div>                                        
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="fname"
+                                        class="col-sm-3 text-end control-label col-form-label">Priority</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="taskPriority_" id="taskPriority_" required>
+                                                <option value="">Select...</option>
+                                                <option value="Urgent">Urgent</option>
+                                                <option value="Important">Important</option>
+                                                <option value="Normal">Normal</option>
+                                            </select>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </form> 
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                        <button class="btn btn-secondary btn-sm" id="btn-Update-Task" 
+                        onclick="" type="button" data-dismiss="modal">Yes Update!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
+
+
+{% block footerjs %}
+
+<script>
+
+    function getFirstElementByName(element_name) {
+        var elements = document.getElementsByName(element_name);
+        if (elements.length) {
+            return elements[0];
+        } else {
+            return undefined;
+        }
+    }
+    let sendTask=()=>{
+        let author = document.getElementById('author').value;
+        let title = document.getElementById('taskTitle').value;
+        let description = document.getElementById('taskDescription').value;
+        let priority = document.getElementById('taskPriority').value;
+        let csrfmiddlewaretoken = getFirstElementByName("csrfmiddlewaretoken").value;
+
+        // console.log(
+        //     author,
+        //     title,
+        //     description,
+        //     priority,
+        //     csrfmiddlewaretoken
+        // );
+    const data = { 
+        author: author,
+        title: title,
+        description: description,
+        priority: priority,
+        csrfmiddlewaretoken: csrfmiddlewaretoken
+    };
+
+    // console.log(data);
+    //POST request with body equal on data in JSON format
+    fetch("", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    })
+    .then((response) => response.json())
+    //Then with the data from the response in JSON...
+    .then((data) => {
+    // console.log('Success:', data);
+    })
+    //Then with the error genereted...
+    .catch((error) => {
+    // console.error('Error:', error);
+    });
+
+
+
+
+
+
+    }
+
+
+        
+$(document).ready(function() {
+
+        // getTaskdata();
+        let data_autoloader=()=>{ 
+            let host = $('#author').val();
+            $('#dynamicData .row').html('');
+            // console.log(host)
+            $.ajax({
+                type: "GET",
+                // url: "{% url 'task-data-autoload' %}",
+                url: "/api/tasks/"+host,
+                // data: {                    
+                //     host:host,
+                // },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    // $('#dynamicData row').html('');
+                    $.each(response, function (key, value) { 
+                        // console.log(response);
+                        $('#dynamicData .row').append(
+                            '<div class="col-md-6 col-lg-4 col-xlg-3">\
+                                <div class="card card-hover">\
+                                    <div class="card-header y-3 d-flex flex-row align-items-center justify-content-between">'
+                                        + value['title'] +
+                                        '<div class="dropdown me-1 no-arrow">\
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">\
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>\
+                                            </a>\
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">\
+                                                <li><a class="dropdown-item small" data-id="'+value['id']+'" data-toggle="modal" data-target="#viewTask" href="#">Details</a></li>\
+                                                <li><a class="dropdown-item small" data-id="'+value['id']+'" data-bs-toggle="modal" data-bs-target="#UpdateTaskModal" href="#">Update</a></li>\
+                                                <li><a class="dropdown-item small"style="color:red;" data-id="'+value['id']+'" data-bs-toggle="modal" data-bs-target="#DeleteTaskModal" href="#">Delete</a></li>\
+                                            </ul>'+
+                                        '</div>'+                                       
+                                    '</div>\
+                                    <div class="card-body">\
+                                        <input type="hidden" class="form-control" name="task_id" id="task_id" placeholder="" value="'+value['id']+'" />'
+                                        + value['description'] +
+                                    '</div>\
+                                    <div class="card-footer">\
+                                        <div class="" style="font-size: 90%;">Created On:  ' +value['created']+ '</div>\
+                                        <div class="" style="font-size: 90%;">Priority:  <span id="priorityValue">'+value['status']+' </span></div> \
+                                    </div>\
+                                </div>\
+                            </div>');
+
+                            
+                    });
+                    changeColor();
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }          
+
+
+        data_autoloader();
+        
+        let changeColor=()=>{
+            let element = document.getElementById('priorityValue');
+            let task_priority = element.textContent;
+
+            if (task_priority.trim() === 'Urgent'){
+                element.style.color='red';
+            }
+            if(task_priority.trim() === 'Important'){
+                element.style.color='green';
+            }
+            if(task_priority.trim() === 'Normal'){
+                element.style.color='blue';
+            }
+
+        }
+
+
+
+
+
+        $('#CreateTaskModal').on('shown.bs.modal', function() {  
+
+            // console.log("gtata")
+            $('#btn-Create-Task').click(function(){
+
+                let author = $('#author').val();
+                let title = $('#taskTitle').val();
+                let description = $('#taskDescription').val();
+                let priority = $('#taskPriority').val();
+                let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+                // if(username === ''){
+                //     $('#invalid-feedback-uname').html('Please correct the error');
+
+                // }
+                // console.log(title);
+               
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'create-task' %}",
+                    data: {
+                        csrfmiddlewaretoken: csrfmiddlewaretoken,
+                        host: author,
+                        title: title,
+                        description: description,
+                        status: priority,
+                    },
+                    datatype: 'json',
+                    dataSrc: "",
+
+                    success:function(response) {
+                        // console.log(response);
+                        if (response['success']){
+                            data_autoloader();
+                            $('#title').val('');
+                            $('#description').val('');
+                            $('#priority').val('');                         
+                            $('#CreateTaskModal').modal('hide');
+                            tryc("success", "Task created successfully !");
+                        }else{
+                            tryc("error", "Task not created !");
+                        }
+                    },
+                    onerror:function(){
+                        tryc("error", "Task creation failed!");
+                    }
+                });
+
+            });
+
+        });
+        
+
+        
+        $('#UpdateTaskModal').on('shown.bs.modal', function(e) {  
+            var reference_tag = $(e.relatedTarget); 
+            var id = reference_tag.data('id');
+            //   var usid = <?php echo $usid; ?>; 
+            // console.log(task_id) ; 
+            $.ajax({
+                type: "GET",
+                url: "{% url 'task-popup' %}",
+                data: {
+                    task_id: id, 
+                    // page: 'civilPage'
+                },
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    let data = response[0]['fields'];
+                    let key = response[0]['pk'];
+                    $('#UpdateForm #task_id_').val(key);
+                    $('#UpdateForm #taskTitle_').val(`${data['title']}`);
+                    $('#UpdateForm #taskDescription_').val(`${data['description']}`);
+                    $('#UpdateForm #taskPriority_').val(`${data['status']}`);
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            });
+        });
+
+
+
+        $('#btn-Update-Task').click(function(e){ 
+            let host = $('#host_id_').val();
+            let id = $('#task_id_').val();
+            let title = $('#UpdateForm #taskTitle_').val();
+            let description = $('#UpdateForm #taskDescription_').val();
+            let status = $('#UpdateForm #taskPriority_').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            // console.log(title);
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'update-task' %}",
+                data: {
+                    host: host,
+                    id: id,
+                    title: title,
+                    description: description,
+                    status: status,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    // action: 'editData'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response[0]['fields']);
+                    // console.log(response);
+                    if (response['success']){
+                        data_autoloader();
+                        $('#taskTitle_').val('');
+                        $('#UpdateForm #taskDescription_').val('');
+                        $('#UpdateForm #taskPriority_').val('');
+                        $('#UpdateTaskModal').modal('hide');
+                        tryc("success", "Success: Edited record saved !"); 
+                    }
+                    else{
+                        tryc("error", "Failed: Edited record not saved !"); 
+                    }
+                    // window.location.href="{% url 'person-contact' %}";
+                    // $('#personContactDatatable').DataTable().destroy();
+                    // fill_person_contact_table();                               
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+
+
+
+        $('#DeleteTaskModal').on('shown.bs.modal', function(e) {  
+            var reference_tag = $(e.relatedTarget); 
+            var task_id = reference_tag.data('id');
+            //   var usid = <?php echo $usid; ?>; 
+            // console.log(task_id) ; 
+            $.ajax({
+                type: "GET",
+                url: "{% url 'task-popup' %}",
+                data: {
+                    task_id: task_id, 
+                    // page: 'civilPage'
+                },
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    let data = response[0]['fields'];
+                    let key = response[0]['pk'];
+                    $('#DeleteModalForm #taskID').val(key);
+                    $('#DeleteModalForm #taskTitle_').val(`${data['title']}`);
+                    $('#DeleteModalForm #taskDescription_').val(`${data['description']}`);
+                    $('#DeleteModalForm #taskPriority_').val(`${data['status']}`);
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            });
+        });
+
+
+
+        $('#btn-Delete-Task').click(function(e){ 
+            let dkey = $('#DeleteModalForm #taskID').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            console.log(dkey)
+
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'delete-task' %}",
+                data: {
+                    dkey: dkey,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    data_autoloader();
+                    $('#DeleteTaskModal').modal('hide');
+                    tryc("success", "Success: Task removed !");
+
+                    // fill_table(usid);                             
+                    // $('#removeBody').html(''); 
+                    // window.location.href="{% url 'task' %}";                            
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+
+        $(document).ajaxStart(function(){
+            $(".loading").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+        });
+
+
+    });
+
+</script>
+
+
+{% endblock footerjs %}

@@ -1,0 +1,347 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  
+
+{#% include "matter_form_headercss_extension.html" %#}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">New Matter</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Matter</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Conflict Information
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card shadow mb-4-old">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Other Parties</h6>
+                    </div>
+        
+                    <div class="card-body">    
+                        <form class="" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- <form id="" class=""> -->
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address">File Number</label>
+                                                    <input type="text" class="form-control mb-4-old" name="file_no" id="file_no" value="{{file_no}}" readonly>
+                                                </div>
+
+                                            </div>
+        
+                                            <div class="col-md-12 mb-3">
+                                                <h6> Co-Parties with their relationship. </h6><br/>
+                                                <div class="" id="">                                            
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+        
+                                                        </div>                                               
+                                                        <div class="col-md-5">
+                                                            <label for="address">Relationship</label><br/>                                               
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label for="address">Contact</label><br/>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div id="dynamicData">                                                
+        
+        
+                                                    </div> 
+                                                </div>
+                                            </div>                                   
+                                        </div>
+                                    </div>
+                                <!-- </form> -->
+                            </div>
+                            <!-- <br/> -->
+                            {{ form.errors }}
+                        </form>
+                            <hr/>
+        
+                        <form class="" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="fieldgroup" id="other_parties">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="address">Relationship</label><br/>
+                                                <input type="text" class="form-control" id="other_party_relationship" name="other_party_relationship" placeholder="" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="address">Contact</label><br/>
+                                                <select class="select2 form-select form-control shadow-none" id="other_party" name="other_party" style="width: 100%; height: 36px">
+                                                    <option>Search & select Contact</option>
+                                                    {% for contact in Person_contact %}
+                                                    <option value="{{contact.id}}">{{contact.familyName}} {{contact.firstName}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <!-- <div class="col-md-2">
+                                                <label for="address">If not found?</label><br/>
+                                                <button id="btn-add-notes" name="new_contact[]" class="btn btn-dark btn-sm new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button>
+                                            </div> -->
+                                            <div class="col-md-2">
+                                                <label for="address">&nbsp;</label><br/>
+                                                <button type="button" name="addToList" id="addToList" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i>Add To List</button>
+                                            </div>
+                                            <!-- <div class="col-md-2">
+                                                <label for="address">Add</label><br/>
+                                                <button type="button" name="addOtherParties" id="addOtherParties" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i> Add More</button>
+                                            </div> -->
+                                        </div>
+                                        <br/>                                            
+                                    </div>
+        
+                                </div>
+                            </div>
+                            {{ form.errors }}
+                        </form>
+        
+        
+                    </div>
+        
+                    <!-- <br/> -->
+                    <!-- </div> -->
+                    <div class="card-footer">
+                        <div class="row">                    
+                            <div class="col-md-12">
+                                <span type="button" id="backPage" class="btn btn-block btn-secondary" value="" />Continue...</span>
+                            </div>      
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock content %} 
+
+
+{% block footerjs %}
+<!-- ENDS SCRIPTS -->
+<!----- cut off ---->
+{#% include  "matter_form_footercss_extension.html" %#}
+
+<script type="text/javascript">
+
+    
+
+    $(document).ready(function(){
+
+
+        let i = 0;        
+        $("#addOtherParties").click(function(){
+            i++;
+            // var gg = '<td><select class="placeholder js-states form-control" name="ad_parties[]><option>Choose...</option><option value="one">First</option><option value="two">Second</option><option value="three">Third</option><option value="four">Fourth</option><option value="five">Fifth</option></select></td><td><button id="btn-add-notes" name="new_contact[]" class="btn btn-dark form-control new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>';            
+            // var gg = '<td>'+ 2  +'</td></tr>';
+            // var field_count =  parseInt($('#field_count').val());
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'person-list' %}",                
+                    datatype: 'json',
+                    dataSrc: "",
+                    
+                    success:function(response) {
+                        var result_str = '<div class="col-md-4"><input type="text" class="form-control" name="other_party_relationship[]" placeholder="" /></div>';
+                         result_str += '<div class="col-md-4"><select class="placeholder js-states packer form-control" name="other_party[]"><option value="">Selection...</option>';
+                        // result_str += '<option value="">Selection...</option>';
+                        for(j = 0; j < response.length; j++){
+                            result_str += '<option value="'+response[j]['pk']+'">'+ response[j]['fields']['familyName'] +' '+ response[j]['fields']['firstName']+'</option>';
+                            // console.log(result_str);
+                        }
+                        $('.packer').addClass("form-control");
+                        $('#other_parties').append('<div class="row mb-2" id="row'+i+'">'+ result_str + '</select></div><div class="col-md-2"><button id="btn-add-notes" name="new_contact[]" class="btn btn-dark btn-sm new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></div><div class="col-md-2"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove">X</button></div></div>');
+                        // $('#field_count').val(field_count + 1);
+                    },
+                    onerror:function(){
+                        $('#process').html('... error loading...');
+                        }
+                });
+
+        });
+
+
+
+        $(document).on('click', '.btn_remove', function(){  
+            var button_id = $(this).attr("id");   
+            // var field_count =  parseInt($('#field_count').val());
+            $('#row'+button_id+'').remove();  
+            // $('#field_count').val(field_count - 1);
+        });
+
+
+        $(".placeholder").select2({
+            placeholder: "Make a Selection",
+            allowClear: true
+        });
+
+
+        data_autoloader();
+        function data_autoloader(){ 
+            let file_no = $('#file_no').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'data-autoload' %}",
+                data: {
+                    file_no:file_no,
+                    page: 'other_party'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    $('#dynamicData').html('');
+                    $.each(response, function (key, value) { 
+                        // console.log(value);
+                        $('#dynamicData').append('<div class="row"> <div class="col-md-1">\
+                            <input type="hidden" class="form-control" name="id_no" placeholder="" value="'+value[0]+'" />\
+                        </div>'+
+                        '<div class="col-md-3">'+value[1]+'</div>'+
+                        '<div class="col-md-6"><a href="../../contact/view-person/'+value[2]+'">'+value[3]+' '+value[4]+' '+value[5]+'</a></div>'+
+                        '<div class="col-md-2">'+
+                        '<h6><span id="'+value[0]+'" class="btn btn-danger btn-sm deleteContact"> X </span></h6>'+
+                        '</div></div>');
+                    });
+
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }          
+
+
+
+
+        $(document).on('click', '.deleteContact', function(){  
+            // let id = e.target.id;
+            let id = $(this).attr("id");
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            // console.log("JJJJJJJ");
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'delete-matter-data' %}",
+                data: {
+                    id: id,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    page: 'other_party'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    data_autoloader();
+                    tryc("success", "Success: Record removed !");
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+        
+        $('#addToList').click(function(e){ 
+            let file_no = $('#file_no').val();
+            let other_party_relationship = $('#other_party_relationship').val();
+            let other_party = $('#other_party').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+            if(file_no === '' || other_party_relationship === '' || other_party === ''){
+                tryc("error", "Field cannot be empty!!");
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'update-matter-other-party' file_no %}",
+                data: {
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    other_party_relationship: other_party_relationship,
+                    other_party: other_party,
+                    file_no:file_no,
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    if (response['message']=== 'success'){
+                        data_autoloader();
+                        tryc("success", "Success: Record saved !");
+                        $('#other_party_relationship').val('');
+                        $("#other_party").val('').trigger('change') ;
+                        // window.location.reload();                       
+                    }
+                    else{
+                        tryc("error", "Failed: Record not saved !");
+                    }
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }); 
+
+        $('#backPage').click(function(e){ 
+            let file_no = $('#file_no').val();
+            window.location.href= '/matter-update/'+file_no;
+
+        }); 
+
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

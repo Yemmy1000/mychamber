@@ -1,0 +1,316 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/dropify/dropify.min.css' %}">
+    <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-select/bootstrap-select.min.css' %}"> -->
+    <!-- <link href="assets/css/components/tabs-accordian/custom-accordions.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2-full/dist/css/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/jquery-selectric/selectric.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css"> -->
+    <link href="{% static 'vendor/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css' %}" />
+
+    <!--  END CUSTOM STYLE FILE  -->
+    {% endblock header %} 
+
+    
+    {% block content %}
+<!----- cut off ---->
+
+            <!-- Page Heading -->
+    <div class="page-header">
+        <nav class="breadcrumb-one" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'contact' %}"><span>Contact</span></a></li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <li class="breadcrumb-item active" aria-current="page"><span>New Company</span></li>
+            </ol>
+        </nav>
+    </div>
+
+ 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">New Company's Contact Entry</h6>
+        </div>
+        <form class="" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+                <!-- <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100"> -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                            <div id="general-info" class="section general-info">
+                                <div class="info">
+                                    <h6 class="">General Information</h6>
+                                    <div class="row">
+                                        <div class="col-lg-11 mx-auto">
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-12 col-md-4">
+                                                    <div class="upload mt-4 pr-md-4"> 
+                                                        {{form.companyLogo|as_crispy_field}}
+                                                        <!-- <input type="file" id="personPix" name="personPix" class="dropify" data-default-file="assets/img/200x200.jpg" data-max-file-size="2M" /> -->
+                                                        <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
+                                                    <div class="form" style="width: 100%;">
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="companyName">Company Name</label>
+                                                                    <input type="text" class="form-control mb-4" name="companyName" id="companyName" placeholder="Company Name" > -->
+                                                                    {{form.companyName|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="dateFound">Date Founded</label>
+                                                                    <input type="date" class="form-control mb-4" name="dateFound" id="dateFound" placeholder="Date" > -->
+                                                                    {{form.dateFounded|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                                         
+                                                    </div>
+
+                                                    <div class="form" style="width: 100%;">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="specialization">Specialisation</label>
+                                                                    <input type="text" class="form-control mb-4" name="specialization" id="specialization" placeholder="Industry the company belong" > -->
+                                                                    {{form.specialization|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="numberOfStaff">Number of Staff</label>
+                                                                    <input type="number" class="form-control mb-4" name="numberOfStaff" id="numberOfStaff" placeholder="Other Name" > -->
+                                                                    {{form.numberOfStaff|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="cacRegNo">CAC Reg No.</label>
+                                                                    <input type="text" class="form-control mb-4" name="cacRegNo" id="cacRegNo" placeholder="Industry the company belong" > -->
+                                                                    {{form.cacRegNo|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="taxId">Tax ID</label>
+                                                                    <input type="number" class="form-control mb-4" name="taxId" id="taxId" placeholder="Other Name" > -->
+                                                                    {{form.taxID|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form" style="width: 100%;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="fullName">Description of Company Activities</label>
+                                                                    <textarea class="form-control mb-4" id="company-description" placeholder="Platforms Description" rows="5"></textarea> -->
+                                                                    {{form.companyActivityDescription|as_crispy_field}}
+                                                                </div>
+                                                            </div>                                                                                            
+                                                        </div>                                                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                            <div id="contact" class="section contact">
+                                <div class="info">
+                                    <h5 class="">Contact</h5>
+                                    <div class="row">
+                                        <div class="col-md-11 mx-auto">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- <label for="address">Office Address</label>
+                                                        <input type="text" class="form-control mb-4" id="address" placeholder="Address"  > -->
+                                                        {{form.officeAddress|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <!-- <label for="address">State</label>
+                                                        <select class="form-control" id="country">
+                                                            <option>Select State</option>
+                                                            <option>Abia</option>
+                                                            <option>Adamawa</option>
+                                                        </select> -->
+                                                        {{form.companyState|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <!-- <label for="country">Country</label>
+                                                        <select class="form-control" id="country">
+                                                            <option>All Countries</option>
+                                                            <option selected>Nigerian</option>                                                                                        
+                                                        </select> -->
+                                                        {{form.companyCountry|as_crispy_field}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- <label for="phone">Official Phone1</label>
+                                                        <input type="text" class="form-control mb-4" id="phone" placeholder="company phone " > -->
+                                                        {{form.firstPhone|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- <label for="phone">Official Phone2</label>
+                                                        <input type="text" class="form-control mb-4" id="phone" placeholder="company phone " > -->
+                                                        {{form.secondPhone|as_crispy_field}}
+                                                    </div>
+                                                </div>                                                                               
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- <label for="email">Official Email</label>
+                                                        <input type="text" class="form-control mb-4" id="email" placeholder="company email " > -->
+                                                        {{form.email|as_crispy_field}}
+                                                    </div>
+                                                </div>                                    
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- <label for="website1">Official Website</label>
+                                                        <input type="text" class="form-control mb-4" id="website1" placeholder="company email "> -->
+                                                        {{form.website|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                            <div id="contact" class="section contact">
+                                <div class="info">
+                                    <h5 class="">Company Representative</h5>
+                                    <div class="row">
+                                        <div class="col-md-11 mx-auto">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        {{form.firstRepresentative|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="website1"> </label><br/>
+                                                        <button type="button"  name="add"  id="addOtherFiles"  class="btn btn-dark btn-sm">If not found, Add contact</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <!-- Second Rep -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="website1"> </label><br/>
+                                                        <button type="button"  name="add"  id="addOtherFiles"  class="btn btn-dark btn-sm">If not found, Add contact</button>
+                                                    </div>
+                                                </div>                                                                               
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <!-- Third Rep -->
+                                                    </div>
+                                                </div>                                    
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="website1"> </label><br/>
+                                                        <button type="button"  name="add"  id="addOtherFiles"  class="btn btn-dark btn-sm">If not found, Add contact</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                <!-- </div>                                                                                -->
+            
+            </div>   
+
+            <div class="card-footer">
+                <div class="row">                    
+                    <div class="col-lg-6">
+                        <input type="submit" id="multiple-messages" class="btn btn-block btn-secondary" value="Save All Information"/>
+                    </div>            
+                    <div class="col-lg-6">                
+                        <input type="reset" id="multiple-messages" class="btn btn-block btn-warning" value="Cancel All Information" />
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>       
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <script src="{% static 'vendor/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'vendor/blockui/jquery.blockUI.min.js' %}"></script>
+    <script src="{% static 'vendor/tagInput/tags-input.js' %}"></script>
+    <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'vendor/bootstrap-select/bootstrap-select.min.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/components/ui-accordions.js ' %}"></script> -->
+    <!-- END PAGE LEVEL SCRIPTS --> 
+        <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+    <!-- <script src="{% static 'vendor/select2/select2.min.js' %}"></script> -->
+    <!-- <script src="{% static 'vendor/select2/custom-select2.js' %}"></script> -->
+    <!-- <script src="{% static 'vendor/select2-full/dist/js/select2.full.min.js' %}"></script> -->
+    <!-- <script src="{% static 'vendor/jquery-selectric/jquery.selectric.min.js' %}"></script> -->
+    <script src="{% static 'vendor/file-upload/file-upload-with-preview.min.js' %}"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script>
+        $( '#single-s-f-firstRep' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+        } );
+        
+        $( '#single-s-f-secondRep' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+        } );
+        $( '#single-s-f-thirdRep' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+        } );
+    </script>
+
+    
+       
+    {% endblock footerjs %}

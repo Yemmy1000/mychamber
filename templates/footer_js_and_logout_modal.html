@@ -1,0 +1,78 @@
+    {% load static %}
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Select "Logout" below if you are ready to end your current session.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    
+    <script src="{% static 'plugins/react/react.development.js' %}"></script>
+    <script src="{% static 'plugins/react/react-dom.development.js' %}"></script>
+    <!-- JSX support-->
+    <script src="{% static 'plugins/react/babel.min.js' %}"></script>
+	
+    <!-- <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script> -->
+    <script src="{% static 'assets/libs/jquery/dist/jquery-3.5.1.js' %}"></script>
+    
+    <script src="{% static 'dist/js/jquery.ui.touch-punch-improved.js' %}"></script>
+    <script src="{% static 'dist/js/jquery-ui.min.js' %}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/sparkline/sparkline.js' %}"></script>
+    <!--Wave Effects -->
+    <script src="{% static 'dist/js/waves.js' %}"></script>
+    <!--Menu sidebar -->
+    <script src="{% static 'dist/js/sidebarmenu.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'dist/js/custom.min.js' %}"></script>
+    <!--This page JavaScript -->
+    <script src="{% static 'assets/libs/select2/dist/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'assets/libs/select2/dist/js/select2.min.js' %}"></script>
+
+    <!-- <script src="{% static 'dist/js/pages/dashboards/dashboard1.js' %}"></script> -->
+    <script src="{% static 'plugins/izitoast/izitoast/js/iziToast.min.js' %}"></script>
+    <script src="{% static 'plugins/izitoast/toastr/toastr.js' %}"></script>
+    <script>
+        $(".select2").select2();
+    </script>
+
+<script type="text/javascript" charset="utf-8">
+
+$(function () {
+
+    console.log(`{{request.user.id}}`);
+
+    // $.get('{% url "send_notification" %}',
+    //         {
+    //         receiver:  `{{request.user.id}}`,
+    //         },
+    //         function(data){
+    //           if (data['status'] == 'ok') {
+    //             title: $('.title').val(''),
+    //             $('.description').val(''),
+    //             $('.recipient').val(''),
+    //             $('#CreateNotificationModal').modal('hide');
+    //             tryc("success", "Success: Notification sent!"); 
+    //           }
+    //         }
+    //       );
+})
+                
+ 
+
+</script>

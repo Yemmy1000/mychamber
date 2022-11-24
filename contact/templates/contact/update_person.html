@@ -1,0 +1,381 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}"> -->
+
+    <!-- <link href="{% static 'plugins/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css' %}" /> -->
+
+    <!--  END CUSTOM STYLE FILE  -->
+    <style>
+        .form-group {
+            margin-bottom: 0.6rem !important;
+        }
+    </style>
+    {{ form.media }}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+    <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title"> Update Contact</h4>
+            <div class="ms-auto text-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Update Person</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Contact
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+  
+        <div class="row">
+            <div class="d-flex align-items-start">
+                <div class="col-md-3 p-r-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-personal-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-personal-info" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Personal Info</button>
+                                <button class="nav-link" id="v-pills-contact-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contact" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Contact</button>
+                                <button class="nav-link" id="v-pills-occupation-tab" data-bs-toggle="pill" data-bs-target="#v-pills-occupation" type="button" role="tab" aria-controls="v-pills-occupation" aria-selected="false">Occupation</button>
+                                <button class="nav-link" id="v-pills-education-tab" data-bs-toggle="pill" data-bs-target="#v-pills-education" type="button" role="tab" aria-controls="v-pills-education" aria-selected="false">Education</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-personal-info" role="tabpanel" aria-labelledby="v-pills-personal-info-tab">
+                                    <form class="form-horizontal" action="" id="frmPersonalInfo" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+                                            <input type="hidden" name="contact_id" class="form-control mb-4" id="contact_id" value="{{id}}" >
+
+                                            <div class="col-md-12">
+                                                <div class="form-group row ">
+
+                                                    <div class="col-sm-12 text-center"> 
+                                                        <img type="file" src="../../media/{{pix}}" width="100" class="rounded-circle"/>
+                                                    </div>
+                                                    <div class="col-sm-12 text-center"> 
+                                                        {{form.personPix|as_crispy_field}}
+                                                        <p class="mt-2">Change Picture</p>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row-old">
+                                                <div class="col-sm-12">
+                                                    {{form.firstName|as_crispy_field}}
+                                                </div>
+                                                </div>
+                                                <div class="form-group row-old">
+                                                <div class="col-sm-12">
+                                                    {{form.familyName|as_crispy_field}}
+                                                </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.otherName|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.dob|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.sex|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.maritalStatus|as_crispy_field}}
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="card-footer">
+                                                <span type="button" name="btnPersonalInfo" id="btnPersonalInfo" class="btn btn-block btn-secondary" >Next <i class="fas fa-arrow-right"></i> </span> 
+                                            </div>
+                                            {{form.errors}}
+                                        </div>
+                                    <!-- </form>        -->
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab">
+                                        <div class="row">
+                            
+                                            <div class="col-md-12">
+                                                <div class="form-group row-old">
+                                                    <div class="col-sm-12">
+                                                    {{form.homeAddress|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.homeState|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                    {{form.homeCountry|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row-Old">
+                                                    <div class="col-sm-12">
+                                                    {{form.contactAddress|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        {{form.contactState|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.contactCountry|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        {{form.nationality|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.language|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        {{form.firstPhone|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.secondPhone|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        {{form.email|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.website|as_crispy_field}}
+                                                    </div>
+                                                </div>                          
+                                            </div>
+                            
+                                            <div class="card-footer">
+                                                <span type="button" name="btnContact" id="btnContactPrev" class="btn btn-block btn-secondary" > <i class="fas fa-arrow-left"></i> Previous  </span>
+                                                <span type="button" name="btnContact" id="btnContactNext" class="btn btn-block btn-secondary" >Next <i class="fas fa-arrow-right"></i> </span>
+                                            </div>
+                                        </div>
+                                    <!-- </form> -->
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-occupation" role="tabpanel" aria-labelledby="v-pills-occupation-tab">
+                                        <div class="row">
+                           
+                                            <div class="col-md-12">
+                                                <div class="form-group row-old">
+                                                    <div class="col-sm-12">
+                                                        {{form.companyName|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row-old">
+                                                    <div class="col-sm-12">
+                                                        {{form.companyAddress|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.companyPhone|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.jobTitle|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.companyEmail|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        {{form.companyWebsite|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row-old">
+                                                    <div class="col-sm-12">
+                                                    {{form.companyDescription|as_crispy_field}}
+                                                    </div>
+                                                </div>                           
+                                            </div>
+                            
+                                            <div class="card-footer">
+                                                <span type="button" name="btnOccupation" id="btnOccupationPrev" class="btn btn-block btn-secondary"><i class="fas fa-arrow-left"></i> Previous </span>
+                                                <span type="button" name="btnOccupation" id="btnOccupationNext" class="btn btn-block btn-secondary">Next <i class="fas fa-arrow-right"></i> </span>
+                                            </div>
+                                            {{form.errors}}
+                                        </div>
+                                    <!-- </form> -->
+                                </div>
+                                
+                                <div class="tab-pane fade" id="v-pills-education" role="tabpanel" aria-labelledby="v-pills-education-tab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row-old">
+                                                    <div class="col-sm-12">
+                                                    {{form.highestEducation|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                    {{form.schoolName|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                    {{form.dateGraduated|as_crispy_field}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row-Old">
+                                                    <div class="col-sm-12">
+                                                    {{form.educationDescription|as_crispy_field}}
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="card-footer">
+                                                <span type="button" name="btnEducation" id="btnEducationPrev" class="btn btn-block btn-secondary"><i class="fas fa-arrow-left"></i> Previous</span>
+                                                <span type="button" name="btnSubmitAll" id="btnSubmitAll" class="btn btn-block btn-secondary">Submit All <i class="fas fa-save"></i></span>
+                                            </div>
+                                            {{form.errors}}
+                                        </div>
+                                    </form>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+      </div>
+ 
+    
+
+
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <script>
+
+        $('#btnPersonalInfo').click(function(){
+            let firstName = $('#frmPersonalInfo #firstName').val();
+            let familyName = $('#frmPersonalInfo #familyName').val();
+            let form = document.getElementById('frmPersonalInfo');
+            // let user_id = $('#user_id').val();
+            if(firstName === '' || familyName === ''){
+                tryc("warning", "Firstname or Lastname cannot be empty!");
+                return false;
+
+            }else{
+                $('#v-pills-contact-tab').click();
+            }
+
+
+            
+        });
+
+        $('#btnContactNext').click(function(){
+            
+            $('#v-pills-occupation-tab').click();       
+            
+        });
+        $('#btnOccupationNext').click(function(){
+            
+            $('#v-pills-education-tab').click();       
+            
+        });
+
+        $('#btnContactPrev').click(function(){
+            
+            $('#v-pills-personal-info-tab').click();       
+            
+        });
+        $('#btnOccupationPrev').click(function(){
+            
+            $('#v-pills-contact-tab').click();       
+            
+        });
+
+        $('#btnEducationPrev').click(function(){
+            
+            $('#v-pills-occupation-tab').click();       
+            
+        });
+      
+        $('#btnSubmitAll').click(function(){
+            let firstName = $('#frmPersonalInfo #firstName').val();
+            let familyName = $('#frmPersonalInfo #familyName').val();
+            let form = document.getElementById('frmPersonalInfo');
+            let contact_id = $('#contact_id').val();
+            // let user_id = $('#user_id').val();
+            if(firstName === '' || familyName === ''){
+                tryc("warning", "Firstname or Lastname cannot be empty!");
+                return false;
+
+            }
+            // console.log(username);
+            let formData = new FormData(form);
+
+            $.ajax({
+                type: "POST",
+                url: "/contact/update-person/"+contact_id,
+                data: formData,
+                datatype: 'json',
+                dataSrc: "",
+                cache: false,
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                success:function(response) {
+                    // console.log(response);
+                    if (response['status'] === 'ok'){
+                    
+                        tryc("success", "User created successfully !");
+                        window.location.href="{% url 'person-contact' %}"; 
+                    }else{
+                        var msg = parseString(response['status']);
+                        tryc("error", response['status']);
+                    }
+                    
+                },
+                onerror:function(){
+                    
+                    tryc("error", "User creation failed!");
+                }
+            });
+
+        });
+
+    
+    </script>
+    
+
+    
+
+    {% endblock footerjs %}

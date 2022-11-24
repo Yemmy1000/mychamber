@@ -1,0 +1,323 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {#% include "headercss_extension.html" %#}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">System Settings</h4>
+                        <a class="btn btn-sm btn-secondary m-l-5" href="{% url 'system-settings-home' %}"><span>System Settings</span></a>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Document Type</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Claimant 
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container-fluid">
+                
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">New Entry</h6>
+                    </div>
+                    <form class="" action="" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+                        <div class="card-body">        
+                            <div class="account-settings-container layout-top-spacing">        
+                                <div class="row">
+                                    <div class="col-md-11 mx-auto">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    {{form.doc_type|as_crispy_field}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    {{form.description|as_crispy_field}}
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div> 
+                                </div>  
+                            </div> 
+                            
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">                    
+                                <div class="col-lg-6 col-md-6 col-6 ">
+                                    <button name="addToList" id="addToList" class="btn btn-block btn-secondary">Add Document Type</button>
+                                </div>            
+                                <div class="col-lg-6 col-md-6 col-6 ">                
+                                    <a id="" class="btn btn-block btn-warning text-black" href="{% url 'system-settings-home' %}" >Go Back to settings </a>
+                                </div>
+                            </div>
+                        </div>     
+                    </form>        
+                </div> 
+
+        
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Claimant Document Types</h6>
+                    </div>
+                    <div class="card-body">        
+                        <div class="account-settings-container layout-top-spacing">        
+                            <div class="row">
+                                <div class="col-md-11 mx-auto">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Description</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+        
+                                            </tfoot>
+                                            <tbody>
+                                                        
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+
+                                </div> 
+                            </div>  
+                        </div> 
+
+                    </div>
+                </div> 
+
+                <div class="modal fade" id="editDocCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Record?</h5>
+                                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form class="formRemoveRec" id="UpdateForm" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="modal-body ">                            
+                                    <div class="card-body col-12"> 
+                                        <!-- <p>Are you sure you want to delete Record?</p>          -->
+                                        <input type="hidden" class="form-control" name="pk" id="pk_"/>
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" name="doc_type" id="doc_type_"/>
+                                        <label for="description">Matter Description</label>
+                                        <textarea name="description" class="form-control" id="description_" cols="" rows="3"></textarea>
+        
+                                        <!-- <input type="hidden" name="rec_key" id="rec_key" /> -->
+                                    </div>                                                  
+                                </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                                <button class="btn btn-secondary" id="btn-editSample" type="button" data-dismiss="modal">Save Edit</button>
+                                <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!----- cut off ---->
+    <script>
+            
+    $(document).ready(function() {
+// console.log("gdgdgdgd");
+        function data_autoloader(){ 
+            // let file_no = $('#file_no').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'autoload-data' %}",
+                data: {
+                    // file_no:file_no,
+                    page: 'claimant_doc_type'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response);
+                    $('#doc_type').val('');
+                    $('#description').html('');
+                    $('tbody').html('');
+                    $.each(response, function (key, value) { 
+                        $('tbody').append('<tr>\
+                            <td>'+value['pk']+'</td>\
+                            <td>'+value['fields']['doc_type']+'</td>\
+                            <td>'+value['fields']['description']+'</td>\
+                            <td><span class="btn btn-sm btn-secondary clsEditDoc" data-id="'+value['pk']+'" data-bs-toggle="modal" data-bs-target="#editDocCatModal" href="#">Edit</span></td>\
+                        </tr>');
+                    });
+
+                },
+                onerror:function(){
+                    tryc("success", "Failed: Record not saved !");
+                }
+            })
+
+        }          
+
+        data_autoloader();
+
+
+        $('#addToList').click(function(e){ 
+            e.preventDefault();
+            let doc_type = $('#doc_type').val();
+            let description = $('#description').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+            if(doc_type === '' ){
+                tryc("error", "Title cannot be empty!!");
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'document-claimant-category' %}",
+                data: {
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    doc_type:doc_type,
+                    description: description,                    
+                    action: 'addData'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    if (response['message']=== 'success'){
+                        data_autoloader();
+                        $('#doc_type').val('');
+                        $('#description').val('');
+                        tryc("success", "Success: Record saved !");
+                    }else{
+                        tryc("error", "Failed: Record not saved !");
+                    }
+                },
+                onerror:function(){
+                    tryc("error", "Failed: Record not saved !");
+                }
+            })
+
+        }); 
+
+
+        $('#editDocCatModal').on('shown.bs.modal', function(e) {  
+                    var reference_tag = $(e.relatedTarget); 
+                    var fsid = reference_tag.data('id');
+                    //   var usid = <?php echo $usid; ?>; 
+                    // console.log(fsid) ; 
+                    $.ajax({
+                        type: "GET",
+                        url: "{% url 'sample-modal-popup' %}",
+                        data: {
+                            rec_id: fsid, 
+                            page: 'claimantDocType'
+                        },
+                        datatype: 'json',
+                        dataSrc: "",
+
+                        success:function(response) {
+                            // console.log(response[0]['fields']);
+                            let data = response[0]['fields'];
+                            let key = response[0]['pk'];
+                            $('#UpdateForm #pk_').val(key);
+                            $('#UpdateForm #doc_type_').val(`${data['doc_type']}`);
+                            $('#UpdateForm #description_').val(`${data['description']}`);
+                        },
+                        onerror:function(){
+                            $('#process').html('... error loading...');
+                        }
+                    });
+                });
+
+
+
+        $('#btn-editSample').click(function(e){ 
+            let pk = $('#pk_').val();
+            let doc_type = $('#doc_type_').val();
+            let description = $('#description_').val();
+            let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            $.ajax({
+                type: "POST",
+                // data: formData,
+                url: "{% url 'document-claimant-category' %}",
+                data: {
+                    pk: pk,
+                    doc_type: doc_type,
+                    description: description,
+                    csrfmiddlewaretoken: csrfmiddlewaretoken,
+                    action: 'editData'
+                },                        
+                datatype: 'json',
+                dataSrc: "",
+
+                success:function(response) {
+                    // console.log(response[0]['fields']);
+                    // console.log(response);
+                    if (response['message'] === 'success'){
+                        data_autoloader();
+                        $('#doc_type_').val('');
+                        $('#description_').val('');
+                        $('#editDocCatModal').modal('hide');
+                        tryc("success", "Success: Edited record saved !"); 
+                    }
+                    else{
+                        tryc("error", "Failed: Edited record not saved !"); 
+                    }
+                    // window.location.href="{% url 'person-contact' %}";
+                    // $('#personContactDatatable').DataTable().destroy();
+                    // fill_person_contact_table();                               
+                },
+                onerror:function(){
+                    $('#process').html('... error loading...');
+                }
+            })
+
+        }); 
+
+
+
+
+    });
+        
+</script>
+
+    {% endblock footerjs %}

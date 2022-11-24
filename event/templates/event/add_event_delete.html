@@ -1,0 +1,140 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/dropify/dropify.min.css' %}">
+    <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-select/bootstrap-select.min.css' %}">
+    <!-- <link href="assets/css/components/tabs-accordian/custom-accordions.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css"> -->
+    <link href="{% static 'vendor/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css' %}" />
+
+    <!--  END CUSTOM STYLE FILE  -->
+    {{ form.media }}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+<!----- cut off ---->
+            <!-- Page Heading -->
+    <div class="page-header">
+        <nav class="breadcrumb-one" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'person-contact' %}"><span>Event</span></a></li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <li class="breadcrumb-item active" aria-current="page"><span>New Event</span></li>
+            </ol>
+        </nav>
+    </div>
+
+ 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">New Event Entry</h6>
+        </div>
+        <form class="" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+            <div class="card-body">        
+                <div class="account-settings-container layout-top-spacing">        
+                    <div class="row">
+                        <div class="col-md-11 mx-auto">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.title|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        {{form.event_type|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        {{form.priority|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.location|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.start_date|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.start_time|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.end_date|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.status|as_crispy_field}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.description|as_crispy_field}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> 
+                    </div>  
+                </div>  
+            </div>
+            <div class="card-footer">
+                <div class="row">                    
+                    <div class="col-lg-6">
+                        <input type="submit" name="submitPersonalContact" id="submitPersonalContact" class="btn btn-block btn-secondary" value="Save All Information"/>
+                    </div>            
+                    <div class="col-lg-6">                
+                        <a id="multiple-messages" class="btn btn-block btn-warning text-black" href="{% url 'event' %}" >Cancel All Information</a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </form>
+
+    </div>       
+
+
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <script src="{% static 'vendor/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'vendor/blockui/jquery.blockUI.min.js ' %}"></script>
+    <script src="{% static 'vendor/tagInput/tags-input.js' %}"></script>
+    <script src="{% static 'assets/js/users/account-settings.js ' %}"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'vendor/bootstrap-select/bootstrap-select.min.js ' %}"></script>
+    <!-- <script src="{% static 'assets/js/components/ui-accordions.js ' %}"></script> -->
+    <!-- END PAGE LEVEL SCRIPTS --> 
+        <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'assets/js/scrollspyNav.js ' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js ' %}"></script>
+    <script src="{% static 'vendor/select2/custom-select2.js ' %}"></script>
+    <script src="{% static 'vendor/file-upload/file-upload-with-preview.min.js ' %}"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+    
+
+    {% endblock footerjs %}

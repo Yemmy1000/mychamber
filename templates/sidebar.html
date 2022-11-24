@@ -1,0 +1,133 @@
+    {% load static %}
+
+	<!-- ============================================================== -->
+      <!-- Left Sidebar - style you can find in sidebar.scss  -->
+      <!-- ============================================================== -->
+      <aside class="left-sidebar" data-sidebarbg="skin5">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+          <!-- Sidebar navigation-->
+          <nav class="sidebar-nav">
+            <ul id="sidebarnav" class="pt-4">
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="/"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-view-dashboard"></i
+                  ><span class="hide-menu">Dashboard</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="{% url 'task' %}"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-view-list"></i
+                  ><span class="hide-menu">Task</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="{% url 'event' %}"
+                  aria-expanded="false"
+                  ><i class="far fa-calendar-alt"></i
+                  ><span class="hide-menu">Event</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="{% url 'person-contact' %}"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-contacts"></i
+                  ><span class="hide-menu">Contact</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="{% url 'matter' %}"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-scale-balance"></i
+                  ><span class="hide-menu">Matter</span></a
+                >
+              </li>
+           
+            <li class="sidebar-item">
+              <a
+                class="sidebar-link has-arrow waves-effect waves-dark"
+                href="javascript:void(0)"
+                aria-expanded="false"
+                ><i class="far fa-comments"></i
+                ><span class="hide-menu">Commucation </span></a>
+              <ul aria-expanded="false" class="collapse first-level">
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link"
+                    ><i class="far fa-envelope"></i
+                    ><span class="hide-menu"> Message </span></a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="{% url 'notice_home' %}" class="sidebar-link"
+                    ><i class="far fa-clipboard"></i
+                    ><span class="hide-menu"> Notifications </span></a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link">
+                    <i class="fab fa-rocketchat"></i>
+                    <span class="hide-menu"> Chat </span></a>
+                </li>
+              </ul>
+            </li>
+
+            <hr/>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link has-arrow waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-settings"></i>
+                  <span class="hide-menu">Settings </span></a
+                >
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="{% url 'user-staff' %}" class="sidebar-link"
+                      ><i class="mdi mdi-account-switch"></i
+                      ><span class="hide-menu"> User </span></a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="{% url 'system-settings-home' %}" class="sidebar-link"
+                      ><i class="mdi mdi-cellphone-settings"></i
+                      ><span class="hide-menu"> System </span></a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="{% url 'user-profile' user.id %}" class="sidebar-link"
+                      ><i class="mdi mdi-account-settings-variant"></i
+                      ><span class="hide-menu"> Profile </span></a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-logout"></i
+                  ><span class="hide-menu">Logout</span></a
+                >
+              </li>
+
+
+            </ul>
+          </nav>
+          <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+      </aside>
+      <!-- ============================================================== -->
+      <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+      <!-- ============================================================== -->

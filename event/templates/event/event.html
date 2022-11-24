@@ -1,0 +1,1040 @@
+{% extends 'main.html' %} 
+{% load i18n static %}
+{% load crispy_forms_tags %}
+
+
+{% block header %}
+    <link href="{#% static 'assets/libs/fullcalendar/dist/fullcalendar.min.css' %#}" rel="stylesheet" />
+    <link href="{#% static 'assets/extra-libs/calendar/calendar.css' %#}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/calendar/fullcalendar/fullcalendar.min.css' %}">
+
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css -->
+
+    {% include "header_plugins_extension.html" %}
+
+    
+{% endblock header %} 
+
+{% block content %}
+
+
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">Event Plan</h4>
+                <div class="m-l-10">
+                    <a class="btn btn-block btn-secondary btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#CreateEventModal" aria-expanded="false">
+                        <i class="fas fa-plus-circle"></i> Add New Event
+                    </a>
+                </div>
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Event</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Event
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3_xxx">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Event</h6> 
+                            <div>                            
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a
+                                        class="nav-link active"
+                                        data-bs-toggle="tab"
+                                        href="#home"
+                                        role="tab"
+                                        ><span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down"><i class="fas fa-calendar-alt text-gray-200"></i> Calendar </span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a
+                                        class="nav-link"
+                                        data-bs-toggle="tab"
+                                        href="#profile"
+                                        role="tab"
+                                        ><span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down"><i class="fas fa-table text-gray-200"></i> Table </span></a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab"
+                                        href="#messages"
+                                        role="tab"
+                                        ><span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down"><i class="fas fa-credit-card text-gray-200"></i> Card </span></a>
+                                    </li> -->
+                                </ul>                  
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" id="home" role="tabpanel">
+                                <div class="p-20">
+                                    <div class="">
+                                        <!-- <div class="row">
+                                            <div class="col-sm-12 text-center loader">
+                                                <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                                            </div>
+                                        </div> -->
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card-body b-l calender-sidebar">
+                                                    <div id="calendar-old"></div>
+                                                    <div id="myEvent"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane p-20" id="profile" role="tabpanel">
+                                <div class="p-20">
+                                    <!-- <div class="row">
+                                        <div class="col-sm-12 text-center loader">
+                                            <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                                        </div>
+                                    </div> -->
+                                    <div class="table-responsive">
+                                        <table id="eventDatatable" class="table table-striped nowrap eventDatatable" style="width:100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>File No</th>   
+                                                    <th>Description</th>
+                                                    <th>Start Date/Time</th>                                                                                                     
+                                                    <th>Priority</th>
+                                                    <th>Category</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- <div class="tab-pane p-20" id="messages" role="tabpanel">
+                                <div class="p-20">
+
+                                 
+                                </div>
+                            </div> -->
+                            {{form.errors}}
+                        </div>
+                    </div>
+                </div>
+
+            <!-- BEGIN MODAL -->
+            <div class="modal fade none-border" id="my-event">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title"><strong>Add Event</strong></h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal" >
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-success save-event waves-effect waves-light">
+                        Create event
+                    </button>
+                    <button  type="button" class="btn btn-danger delete-event waves-effect waves-light" data-bs-dismiss="modal">
+                        Delete
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="modal fade none-border" id="CreateEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Event</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <div class="row"> -->
+
+                            <form action="" method="POST" id="CreateEventForm">   
+                                {% csrf_token %}
+                                <div class="row m-2">
+                                    <input type="hidden" name="author" class="form-control" id="author" value="{{user.id}}" />
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="fname"
+                                            class="control-label col-form-label">Title</label>
+                                            <input type="text" class="form-control" name="title" id="eventTitle" 
+                                            aria-describedby="taskname" placeholder="" required/>
+                                        </div>
+                                        
+                                        <div class="col-sm-6">
+                                            <label for="fname"
+                                            class="control-label col-form-label">Concerned Matter</label>
+                                            {{form.matter| as_crispy_field}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="fname"
+                                            class="control-label col-form-label">Start Date</label>
+                                            {{form.start| as_crispy_field}}
+                                        </div>
+                                        
+                                        <div class="col-sm-6">
+                                            <label for="fname"
+                                            class="control-label col-form-label">Start Time</label>
+                                            <input type="time" class="form-control" name="start_time" id="eventStartTime" 
+                                            aria-describedby="taskname" placeholder="" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">                                                
+                                            {{form.end| as_crispy_field}}
+                                        </div>
+                                        
+                                        <div class="col-sm-6">
+                                            <label for="fname"
+                                            class="control-label col-form-label">End Time</label>
+                                            <input type="time" class="form-control" name="end_time" id="eventEndTime" 
+                                            aria-describedby="taskname" placeholder="" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">                                                
+                                            {{form.participant| as_crispy_field}}
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">                                                
+                                            {{form.priority| as_crispy_field}}
+                                        </div>
+                                        <div class="col-sm-4">                                                
+                                            {{form.category| as_crispy_field}}
+                                        </div>
+                                        <div class="col-sm-4">                                                
+                                            {{form.status| as_crispy_field}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">                                                
+                                            {{form.description| as_crispy_field}}
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </form>
+        
+                            <!-- </div> -->
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                            <button class="btn btn-secondary" id="btn-Create-Event" 
+                            onclick="" type="button">Yes Create!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            
+            <div class="modal fade none-border" id="UpdateEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Event</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <!-- <div class="col-sm-12 text-center loader">
+                                    <img class="loading" src="../media/loading.svg" style="width:10%;" alt="">
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <form action="" method="POST" id="UpdateEventForm">   
+                                    {% csrf_token %}
+                                    <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" />
+                                    <input type="hidden" name="id" class="form-control mb-4" id="id"  />
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Title</label>
+                                            <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="title" id="eventTitle_u" 
+                                            aria-describedby="taskname" placeholder="" required/>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Concerned Matter</label>
+                                            <div class="col-sm-9">
+                                                <select name="matter" class="select2 form-select shadow-none form-control" id="MatterList4Update" style ="width: 100%; height: 36px">
+                                                    <option value="">Search...</option>
+                                                </select> 
+                                            </div>
+                                        </div>                                        
+                                    </div>                                
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Start Date & Time</label>
+                                            <div class="col-sm-9">
+                                            <input type="datetime-local" class="form-control" name="start" id="eventStartDateTime_u" 
+                                            aria-describedby="" placeholder="" required/>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">End Date & Time</label>
+                                            <div class="col-sm-9">
+                                            <input type="datetime-local" class="form-control" name="end" id="eventEndDateTime_u" 
+                                            aria-describedby="taskname" placeholder="" required/>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Description</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" name="description" id="eventDescription_u" required></textarea>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Priority</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="priority" id="eventPriority" required>
+                                                    <option value="">Select...</option>
+                                                    <option value="Urgent">Urgent</option>
+                                                    <option value="Important">Important</option>
+                                                    <option value="Normal">Normal</option>
+                                                </select>                                                
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Category</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="category" id="eventCategory" required>
+                                                    <option value="">Select...</option>
+                                                    <option value="Personal">Personal</option>
+                                                    <option value="Official">Official</option>
+                                                    <option value="Business">Business</option>
+                                                </select>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Status</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="status" id="eventStatus" required>
+                                                    <option value="">Select...</option>
+                                                    <option value="Closed">Closed</option>
+                                                    <option value="Ongoing">Ongoing</option>
+                                                    <option value="Scheduled">Scheduled</option>
+                                                </select>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </form> 
+                            </div>
+
+                            {{form.errors}}
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                            <button class="btn btn-secondary btn-sm" id="btn-Update-Event" 
+                            onclick="" type="button" data-dismiss="modal">Yes Update!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+
+
+            <div class="modal fade none-border" id="ViewEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Event Viewer</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body m-20">
+                            <div class="row pl-15">
+                                <input type="hidden" name="host_id_" id="host_id_" class="form-control mb-4" value="{{user.id}}" readonly>
+                                <input type="hidden" name="eventID" id="eventID" class="form-control mb-4" readonly>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Title</label>
+                                        <div type="text" class="eventTitle_v"></div>
+                                    </div>
+                                    
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Matter (File No)</label>
+                                        <div type="text" class="matter_no_v"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Start Date</label>
+                                        <div type="text" class="eventStartDate_v"></div>
+                                    </div>
+                                    
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Start Time</label>
+                                        <div type="text" class="eventStartTime_v"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">End Date</label>
+                                        <div type="text" class="eventEndDate_v"></div>
+                                    </div>
+                                    
+                                    <div class="col-sm-6">
+                                        <label for="fname"
+                                        class="control-label col-form-label">End Time</label>
+                                        <div type="text" class="eventEndTime_v"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Participants</label>
+                                        <div type="text" class="eventParticipants_v">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Category</label>
+                                        <div type="text" class="eventCategory_v"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Priority</label>
+                                        <div type="text" class="eventPriority_v"></div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Status</label>
+                                        <div type="text" class="eventStatus_v"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="fname"
+                                        class="control-label col-form-label">Description</label>
+                                        <div type="text" class="eventDescription_v"></div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                            <button class="btn btn-secondary" id="btn-Create-Event" 
+                            onclick="" type="button" data-bs-dismiss="modal">Close!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            
+            <div class="modal fade" id="DeleteEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Event ?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <form action="" id="DeleteModalForm" method="POST">   
+                                    {% csrf_token %}
+                                    <input type="hidden" name="host_id_" id="host_id_" class="form-control mb-4" value="{{user.id}}" readonly>
+                                    <input type="hidden" name="eventID" id="eventID" class="form-control mb-4" readonly>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Title</label>
+                                            <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="eventTitle_" id="eventTitle_" 
+                                            aria-describedby="eventname" placeholder="" readonly/>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Description</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" name="eventDescription_" id="eventDescription_" readonly></textarea>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="fname"
+                                            class="col-sm-3 text-end control-label col-form-label">Priority</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="taskPriority_" id="taskPriority_" readonly>
+                                                    <option value="">Select...</option>
+                                                    <option value="Urgent">Urgent</option>
+                                                    <option value="Important">Important</option>
+                                                    <option value="Normal">Normal</option>
+                                                </select>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </form> 
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+                            <button class="btn btn-secondary" id="btn-Delete-Event" 
+                            onclick="" type="button" data-dismiss="modal">Yes Delete!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+
+
+
+
+    {% endblock content %} 
+
+
+
+    {% block footerjs %}
+
+        {% include "footer_plugins_extension.html" %}
+                   
+        <script src="{% static 'assets/calendar/fullcalendar/fullcalendar.min.js' %}"></script>
+        <script src="{% static 'js/event/event_data_table.js' %}"></script>
+        <script src="{% static 'js/event/event_calendar_data.js' %}"></script>
+        <script>
+            $('.select2').each(function () {
+                $(this).select2({
+                    // theme: 'bootstrap-5',
+                    dropdownParent: $(this).parent(),
+                    placeholder: "-- Select --",
+                });
+                $(this).val(null).trigger("change");
+                
+                // $('#participant').val(null);
+                // $('.select2.select2-container').remove();
+                //re-call select2 on your element 
+                // $('#participant').select2({
+                //     multiple: true,
+                //     placeholder: "Select as many...."
+                // });
+
+            });
+            
+
+
+        </script>
+
+
+        <script type="text/javascript" charset="utf-8">
+
+                
+            let getMatterList = async (elem) => {
+                    // let response = await fetch('/api/matters/')
+                    // let mattersJsonData = await response.json()
+                    // console.log(mattersJsonData)
+                    // renderDataInTheTable(mattersJsonData, elem);
+                    // MatterList4Create
+                }
+
+            function renderDataInTheTable(todos, elem) {
+                const myOption = document.getElementById(elem);
+                for (let i = 0; todos.length > i; i++) {
+                    let todo = todos[i]
+                    
+                    let row = '<option value="'+`${todo.file_no}`+'">'+`${todo.file_no}` + ' | ' + `${todo.client_contact}`+'</option>';
+                    myOption.innerHTML += row
+                }
+            }
+        </script>
+
+
+<script>    
+
+
+    $(document).ready(function() {
+
+        // $('.select2').val(null).trigger('change');
+        // $(".select2").empty().trigger('change')
+        $(".select2").val('');
+        
+        let createElem = "MatterList4Create";
+        let updateElem = "MatterList4Update";
+        
+        getMatterList(createElem);
+        getMatterList(updateElem);
+
+
+        // myCalendar();
+        // var table = $('#eventDatatable-old').DataTable({
+        // searchPanes: true,
+        // lengthChange: false,
+        // buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+        // });
+        // table.searchPanes.container().prependTo(table.table().container());
+        // table.searchPanes.resizePanes();
+        // table.buttons().container()
+        // .appendTo( '#eventDatatable_wrapper .col-md-6:eq(0)' );
+
+
+
+      let changeColor=()=>{
+          // let element = document.getElementById('priorityValue');
+          // let task_priority = element.textContent;
+
+          // if (task_priority.trim() === 'Urgent'){
+          //     element.style.color='red';
+          // }
+          // if(task_priority.trim() === 'Important'){
+          //     element.style.color='green';
+          // }
+          // if(task_priority.trim() === 'Normal'){
+          //     element.style.color='blue';
+          // }
+
+      }
+
+    let get_time = (idate, itime)=>{
+        var date_time =idate+' '+itime;   
+        const time = moment(new Date(date_time));
+        return time;
+    }
+
+    $('#CreateEventModal').on('shown.bs.modal', function() {  
+        
+        
+
+    });
+
+    $('#btn-Create-Event').click(function(){
+
+        let author = $('#CreateEventForm #author').val();
+        let title = $('#CreateEventForm #eventTitle').val();
+        let matter = $('#CreateEventForm #matter').val();
+        let description = $('#CreateEventForm #eventDescription').val();
+        let start = $('#CreateEventForm #id_start').val();
+        let start_time = $('#CreateEventForm #eventStartTime').val();       
+        let end = $('#CreateEventForm #id_end').val();
+        let end_time = $('#CreateEventForm #eventEndTime').val();
+        let priority = $('#CreateEventForm #eventPriority').val();
+        let category = $('#CreateEventForm #eventCategory').val();
+        let status = $('#CreateEventForm #eventStatus').val();
+        let participants = $('#CreateEventForm #participant-select').select2("val");
+        let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+        // console.log(participants.length)
+
+
+        if(start === '' || title === '' || participants.length === 0 || start_time === ''){
+
+            tryc("warning", "Start date & time, title or participant is empty!");
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'create-event' %}",
+            data: {
+                csrfmiddlewaretoken: csrfmiddlewaretoken,
+                author: author,
+                matter: matter,
+                title: title,
+                description: description,
+                participant: participants,
+                start: start,
+                start_time: start_time,
+                end: end,
+                end_time: end_time,
+                priority: priority,
+                category: category,
+                status: status,
+            },
+            datatype: 'json',
+            dataSrc: "",
+
+            success:function(response) {
+                console.log(response);
+                if (response['status']==='ok'){
+                    // data_autoloader_old();             
+                    $('#eventTitle').val('');
+                    $('#eventDescription').val('');
+                    $('#eventStartDateTime').val('');
+                    $('#eventEndDateTime').val('');
+                    // $('#eventPriority').val('');
+                    // $('#eventCategory').val('');
+                    // $('#eventStatus').val('');                       
+                    $('#CreateEventModal').modal('hide');
+                //   window.location.reload();  
+                    dataTable.ajax.reload(null, false ); // user paging is not reset on reload
+                    tryc("success", "Event created successfully !");
+                }else{
+                    tryc("error", "Task not created !");
+                    $('#CreateEventModal').modal('hide');
+                }
+            },
+            onerror:function(){
+                tryc("error", "Task creation failed!");
+            }
+        });
+
+    });
+
+
+
+      $('#ViewEventModal').on('shown.bs.modal', function(e) { 
+        //   console.log("ggdgdgdg");   
+            var reference_tag = $(e.relatedTarget); 
+            var event_id = reference_tag.data('id');
+
+        //   console.log(event_id);
+            $.ajax({
+                type: "GET",
+                url: "/api/events/"+event_id,
+                // data: {                   
+                //     id: event_id,
+                // },
+                datatype: 'json',
+                dataSrc: "",
+                // moment(st).format('LLL');
+                success:function(response) {
+                    // console.log(response);
+                    // console.log(response['title']);
+                    if (response.length != 0){
+                        // data_autoloader_old();     
+     
+                        $('.eventTitle_v').html(response['title']);
+                        $('.matter_no_v').html(response['matter']['file_no']);                        
+                        $('.eventDescription_v').html(response['description']);
+                        $('.eventStartDate_v').html(moment(response['start']).format('MMMM dddd, YYYY')); 
+                        $('.eventStartTime_v').html(get_time(response['start'], response['start_time']).format('h:mm A') );
+                        $('.eventEndDate_v').html(moment(response['end']).format('MMMM dddd, YYYY')); 
+                        $('.eventEndTime_v').html(get_time(response['end'], response['end_time']).format('h:mm A'));  
+                        $('.eventPriority_v').html(response['priority']);
+                        $('.eventCategory_v').html(response['category']);
+                        $('.eventStatus_v').html(response['status']); 
+                        // $('.eventParticipants_v').html(response['participant']); 
+                        let num = 0;
+                        response['participant'].forEach(obj => {
+                            $('.eventParticipants_v').append(
+                            '</span><span class="m-l-20" style="display:block">'+ `${++num}. ${obj['first_name']}  ${obj['last_name']}` + '</span>'
+
+                            );
+
+                        });
+
+                        let d1 = moment("2018-05-19");
+                        let d2 = moment("2018-05-20");
+                        let d3 = moment("2018-05-22");
+
+                        if (d1.isAfter(d2)) {
+
+                            console.log(`${d1.format('ll')} is after ${d2.format('ll')}`);
+                        } else {
+
+                            console.log(`${d1.format('ll')} is before ${d2.format('ll')}`);
+                        }
+
+                        if (d2.isBefore(d3)) {
+
+                            console.log(`${d2.format('ll')} is before ${d3.format('ll')}`);
+                        } else {
+
+                            console.log(`${d2.format('ll')} is after ${d3.format('ll')}`);
+                        }      
+
+                        //from then until now
+                        console.log(moment(get_time(response['start'], response['start_time'])).countdown().toString()); //=> '30 years, 10 months, 14 days, 1 hour, 8 minutes, and 14 seconds'
+
+                        //accepts a moment, JS Date, or anything parsable by the Date constructor
+                        moment("1955-8-21").countdown("1982-5-25").toString(); //=> '26 years, 9 months, and 4 days'
+
+                        //also works with the args flipped, like diff()
+                        moment("1982-5-25").countdown("1955-8-21").toString(); //=> '26 years, 9 months, and 4 days'
+
+                        //accepts all of countdown's options
+                        moment().countdown("1982-5-25", countdown.MONTHS|countdown.WEEKS, NaN, 2).toString(); //=> '370 months, and 2.01 weeks'
+
+                        
+                    }else{
+                        tryc("error", "Task not created !");
+                    }
+                },
+                onerror:function(){
+                    tryc("error", "Task creation failed!");
+                }
+            });
+
+  
+
+    });
+
+
+     // '2:04pm'
+
+
+
+        $('#UpdateEventModal').on('shown.bs.modal', function(e) { 
+        //   console.log("ggdgdgdg");   
+            var reference_tag = $(e.relatedTarget); 
+            var event_id = reference_tag.data('id');
+            const startdatetime= document.getElementById('eventStartDateTime_u');
+            const enddatetime = document.getElementById('eventEndDateTime_u');
+
+        //   console.log(event_id);
+            $.ajax({
+                type: "GET",
+                url: "/api/events/"+event_id,
+                // data: {                   
+                //     id: event_id,
+                // },
+                datatype: 'json',
+                dataSrc: "",
+                // moment(st).format('LLL');
+                success:function(response) {
+                    // console.log(response);
+                    if (response.length != 0){
+                        // data_autoloader_old();             
+                        $('#id').val(response['id']);
+                        $('#eventTitle_u').val(response['title']);
+                        $("#MatterList4Update").select2().val(response['matter']).trigger("change");
+                        $('#eventDescription_u').val(response['description']);
+                        startdatetime.value = formatDateTime(response['start']);
+                        enddatetime.value = formatDateTime(response['end']);
+                        $('#UpdateEventForm #eventPriority').val(response['priority']);
+                        $('#UpdateEventForm #eventCategory').val(response['category']);
+                        $('#UpdateEventForm #eventStatus').val(response['status']);
+                        
+                        function formatDateTime(dt){
+                            console.log(dt);
+                            if(dt==='' || dt === null){
+                                return '';
+                            }
+                            const [date, time] = dt.split('T');                          
+                            fdt = date + 'T' + time.slice(0, 5);
+                            return fdt;
+                        }
+
+
+                    }else{
+                        tryc("error", "Task not created !");
+                    }
+                },
+                onerror:function(){
+                    tryc("error", "Task creation failed!");
+                }
+            });
+
+    });
+
+
+      $('#btn-Update-Event').click(function(e){ 
+	
+          let author = $('#host_id_').val();
+          let id = $('#UpdateEventForm #id').val();
+          let matter = $('#MatterList4Update').val();
+          let title = $('#eventTitle_u').val();
+          let description = $('#eventDescription_u').val();
+          let start = $('#eventStartDateTime_u').val();
+          let end = $('#eventStartDateTime_u').val();
+          let category = $('#eventCategory').val();
+          let priority = $('#eventPriority').val();
+          let status = $('#eventStatus').val();
+          let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+        //   console.log(matter);
+          $.ajax({
+              type: "POST",
+              // data: formData,
+              url: "update-event/"+id,
+              data: {
+                  author: author,
+                  id: id,
+                  title: title,
+                  matter: matter,
+                  start: start,
+                  end: end,
+                  description: description,
+                  category: category,
+                  priority: priority,
+                  status: status,
+                  csrfmiddlewaretoken: csrfmiddlewaretoken,
+                  // action: 'editData'
+              },                        
+              datatype: 'json',
+              dataSrc: "",
+
+              success:function(response) {
+                  // console.log(response[0]['fields']);
+                //   console.log(response);
+                  if (response['success']){
+                      dataTable.ajax.reload(null, false ); // user paging is not reset on reload
+                      $('#eventTitle_').val('');
+                      $('#UpdateForm #eventDescription_').val('');
+                      $('#UpdateForm #eventPriority').val('');
+                      $('#UpdateEventModal').modal('hide');
+                      tryc("success", "Success: Updated record saved !"); 
+                  }
+                  else{
+                      tryc("error", "Failed: Updated record not saved !"); 
+                  }
+                  // window.location.href="{% url 'person-contact' %}";
+                  // $('#personContactDatatable').DataTable().destroy();
+                  // fill_person_contact_table();                               
+              },
+              onerror:function(){
+                  $('#process').html('... error loading...');
+              }
+          })
+
+      }); 
+
+
+
+      $('#DeleteEventModal').on('shown.bs.modal', function(e) {  
+          var reference_tag = $(e.relatedTarget); 
+          var event_id = reference_tag.data('id');
+          //   var usid = <?php echo $usid; ?>; 
+        //   console.log(event_id) ; 
+          $.ajax({
+              type: "GET",
+              url: "/api/events/"+event_id,
+            //   data: {
+            //     event_id: event_id, 
+            //   },
+              datatype: 'json',
+              dataSrc: "",
+
+              success:function(response) {
+                  $('#DeleteModalForm #eventID').val(`${response['id']}`);
+                  $('#DeleteModalForm #eventTitle_').val(`${response['title']}`);
+                  $('#DeleteModalForm #eventDescription_').val(`${response['description']}`);
+                  $('#DeleteModalForm #taskPriority_').val(`${response['priority']}`);
+              },
+              onerror:function(){
+                  $('#process').html('... error loading...');
+              }
+          });
+      });
+
+
+
+      $('#btn-Delete-Event').click(function(e){ 
+          let id = $('#DeleteModalForm #eventID').val();
+          let csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+          $.ajax({
+              type: "POST",
+              // data: formData,
+              url: "delete-event/"+id,
+              data: {
+                //   dkey: dkey,
+                  csrfmiddlewaretoken: csrfmiddlewaretoken,
+              },                        
+              datatype: 'json',
+              dataSrc: "",
+
+              success:function(response) {
+                //   data_autoloader_old();
+                  $('#DeleteEventModal').modal('hide');
+                  tryc("success", "Success: Event removed !");
+                  dataTable.ajax.reload(null, false ); // user paging is not reset on reload
+                  // fill_table(usid);                             
+                  // $('#removeBody').html(''); 
+                  // window.location.href="{% url 'task' %}";                            
+              },
+              onerror:function(){
+                  $('#process').html('... error loading...');
+              }
+          })
+
+      }); 
+
+      $(document).ajaxStart(function(){
+            $(".loading").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+    });
+
+});
+
+</script>
+
+    {% endblock footerjs %}

@@ -1,0 +1,111 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  
+
+{#% include "matter_form_headercss_extension.html" %#}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">New Matter</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Matter</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                New Matter
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Matter Attorney</h6>
+                    </div>
+                    <form class="form-horizontal" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-group row-old">
+                                <div class="col-sm-12">
+                                    <label for="address">File Number</label>
+                                    <input type="text" class="form-control mb-4-old" name="file_no" id="address" value="{{request.session.file_no}}" readonly>            
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{form.personnel|as_crispy_field}}
+                                </div>
+                            </div>
+                                                
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">                    
+                                <div class="col-md-12">
+                                    <input type="submit" id="" class="btn btn-block btn-secondary" value="Save & Continue..." />
+                                </div>            
+                            </div>
+                        </div>
+                        {{ form.errors }}
+                    </form> 
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+{% endblock content %} 
+
+
+{% block footerjs %}
+<!-- ENDS SCRIPTS -->
+
+{#% include  "matter_form_footercss_extension.html" %#}
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+ 
+
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

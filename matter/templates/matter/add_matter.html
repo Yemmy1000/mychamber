@@ -1,0 +1,826 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  {% include "matter_form_headercss_extension.html" %}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+<div class="page-header">
+    <nav class="breadcrumb-one" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="matter.php"><span>Matter</span></a></li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <li class="breadcrumb-item active" aria-current="page"><span>New Matter</span></li>
+        </ol>
+    </nav>
+</div>
+
+<div class="card shadow mb-4-old">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Matter Entry</h6>
+    </div>
+    <form class="" action="" method="POST">
+        {% csrf_token %}
+        <div class="card-body">
+
+            <div class="account-settings-container layout-top-spacing">
+
+                <div class="row">
+                    <div class="col-lg-12 layout-spacing">
+                        <!-- <div class="statbox widget box box-shadow"> -->
+                        <div class="widget-content widget-content-area">
+
+                            <div id="iconsAccordion" class="accordion-icons">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne3">
+                                        <section class="mb-0 mt-0">
+                                            <div role="menu" class="d-sm-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#iconAccordionOne" aria-expanded="true" aria-controls="iconAccordionOne">
+                                                <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>&nbsp; CLIENT INFORMATION</div>
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            </div>
+                                        </section>                       
+                                    </div>
+
+                                    <div id="iconAccordionOne" class="collapse show" aria-labelledby="headingOne3" data-parent="#iconsAccordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-11 mx-auto">
+                                                    <!-- <form id="" class=""> -->
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <input type="hidden" class="form-control mb-4-old" id="author" name="author" value="{{ user.id }}">
+
+                                                                <div class="form-group">
+                                                                    <!-- <label for="email">Client Contact</label> -->
+                                                                    <!-- <select class="selectpicker form-control mb-4-old_old" data-live-search="true" placeholder="Write your email here">
+                                                                        <option>Search & select Contact</option>
+                                                                        <option>Fries</option>
+                                                                        <option>Burger, Shake and a Smile</option>
+                                                                        <option>Sugar, Spice and all things nice</option>
+                                                                    </select> -->
+                                                                    {{form.client_contact|as_crispy_field}}
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="website1">Is Contact not found?</label><br/>
+                                                                    <a id="btn-add-notes" class="btn btn-dark btn-sm" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</a>
+                                                                </div>
+                                                            </div>
+                                                            <span id="nextBt01" class="btn btn-dark btn-sm"><i class="fas fa-angle-double-down text-gray-200"></i> Save & Next</span>
+                                                        </div>
+                                                    <!-- </form> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo3">
+                                        <section class="mb-0 mt-0">
+                                            <div role="menu" class="d-sm-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#iconAccordionTwo" aria-expanded="false" aria-controls="iconAccordionTwo">
+                                                <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>&nbsp; MATTER INFORMATION</div>
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div id="iconAccordionTwo" class="collapse" aria-labelledby="headingTwo3" data-parent="#iconsAccordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!-- <form id="" class=""> -->
+                                                    <div class="col-md-11 mx-auto">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="address">Matter Title</label>
+                                                                    <input type="text" class="form-control mb-4-old" id="address" placeholder="Give title to the matter"> -->
+                                                                    {{form.title|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="address">Matter Title</label>
+                                                                    <input type="text" class="form-control mb-4-old" id="address" placeholder="Give title to the matter"> -->
+                                                                    {{form.claim_no|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <!-- <label for="address">Matter Title</label>
+                                                                    <input type="text" class="form-control mb-4-old" id="address" placeholder="Give title to the matter"> -->
+                                                                    {{form.file_no|as_crispy_field}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <div class="form-group">
+                                                                            <!-- <label for="phone">Referrer</label>
+                                                                            <select class="selectpicker form-control mb-4-old" data-live-search="true" placeholder="Write your email here">
+                                                                                            <option>Search & select Contact</option>    
+                                                                                            <option>Fries</option>
+                                                                                            <option>Burger, Shake and a Smile</option>
+                                                                                            <option>Sugar, Spice and all things nice</option>
+                                                                                </select> -->
+                                                                                {{form.referrer|as_crispy_field}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="website1">Is Contact not found?</label>
+                                                                            <a id="btn-add-notes" class="btn btn-dark btn-sm" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <div class="form-group">
+                                                                            <!-- <label for="phone">Originating Attorney</label>
+                                                                            <select class="selectpicker form-control mb-4-old" data-live-search="true" placeholder="Write your email here">
+                                                                                        <option>Search & select Contact</option>
+                                                                                        <option>Fries</option>
+                                                                                        <option>Burger, Shake and a Smile</option>
+                                                                                        <option>Sugar, Spice and all things nice</option>
+                                                                             </select> -->
+                                                                             {{form.originating_attorney|as_crispy_field}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="website1">Is Contact not found?</label>
+                                                                            <a id="btn-add-notes" class="btn btn-dark btn-sm" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <div class="form-group">
+                                                                            <!-- <label for="phone">Supervising Attorney</label>
+                                                                            <select class="selectpicker form-control mb-4-old" data-live-search="true" placeholder="Write your email here">
+                                                                                        <option>Search & select Contact</option>
+                                                                                        <option>Fries</option>
+                                                                                        <option>Burger, Shake and a Smile</option>
+                                                                                        <option>Sugar, Spice and all things nice</option>
+                                                                                    </select> -->
+                                                                            {{form.supervising_attorney|as_crispy_field}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="website1">Is Contact not found?</label>
+                                                                            <a id="btn-add-notes" class="btn btn-dark btn-sm" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <span id="nextBt02" class="btn btn-dark btn-sm"><i class="fas fa-angle-double-down text-gray-200"></i> Save & Next</span>
+                                                        </div>
+                                                    </div>
+                                                <!-- </form> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- come here now -->
+
+                                <div class="card">
+                                    <div class="card-header" id="headingThree8">
+                                        <section class="mb-0 mt-0">
+                                            <div role="menu" class="d-sm-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#iconAccordionThree" aria-expanded="true" aria-controls="iconAccordionThree">
+                                                <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>&nbsp; CONFLICT INFORMATION</div>
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                
+                                    <div id="iconAccordionThree" class="collapse" aria-labelledby="headingThree8" data-parent="#iconsAccordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-11 mx-auto">
+                                                    <!-- <form name="add_name" id="add_name"> -->
+                                                        <h6> Other Parties Associated with the Client with their relation. If Contact is not found, add new </h6>
+                                
+                                                        <table class="table table-bordered table-hover" id="other_parties">
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="relationship[]" placeholder="What's the relationship with client" /></td>
+                                                                <td>
+                                                                    <select class="selectpicker form-control" data-live-search="true" name="assoc_contact[]"><option>Search & select Contact</option>  <option>Burger, Shake and a Smile</option><option>Sugar, Spice and all things nice</option></select>
+                                                                </td>
+                                                                <td><button id="btn-add-notes" name="new_contact[]" class="btn btn-dark btn-sm form-control new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td>
+                                                                <td><button type="button" name="addOtherParties" id="addOtherParties" class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i> Add More</button></td>
+                                                            </tr>
+                                                        </table>
+                                
+                                                        <h6> Adverse Parties Associated with the Client with their relation. If Contact is not found, add new </h6>
+                                                        <table class="table table-bordered table-hover" id="adverse_parties">
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="placeholder js-states form-control" name="ad_parties[]>
+                                                                                <option>Choose...</option>
+                                                                                <option value="one">First</option>
+                                                                                <option value="two">Second</option>
+                                                                                <option value="three">Third</option>
+                                                                                <option value="four">Fourth</option>
+                                                                                <option value="five">Fifth</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td><button id="btn-add-notes"  name="new_contact[]"  class="btn btn-dark btn-sm form-control new_contact"  href="#">                                   
+                                                                            <i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td>
+                                                                        <td><button type="button"  name="addAdverseParties"  id="addAdverseParties"  class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i> Add More</button></td>  
+                                                                    </tr>
+                                                                </table>
+                                                                
+                                                                
+                                                                <h6>Names Associated with other Files for this Client:  </h6>
+                                                                <table class="table table-bordered table-hover"  id="other_files">
+                                                                    <tr>
+                                                                        <td><input type="text"  class="form-control"  name="relationship[]"  placeholder=""  /></td>
+                                                                        <td><button type="button"  name="add"  id="addOtherFiles"  class="btn btn-dark btn-sm"><i class="fas fa-plus-circle text-gray-200"></i> Add More</button></td>  
+                                                                    </tr>
+                                                                </table>                                                               
+                                
+                                                    <!-- </form> -->
+                                                </div>                                                        
+                                            </div>  
+                                                    <span id="nextBt03"  class="btn btn-dark btn-sm"><svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="feather feather-chevrons-down"><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg> Save & Next</span>
+                                        
+                                        </div>
+                                    </div>
+                                </div>    
+                                
+                                <div class="card">
+                                    <div class="card-header" id="headingThree5">
+                                        <section class="mb-0 mt-0">
+                                            <div role="menu" class="d-sm-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#iconAccordionFive" aria-expanded="true" aria-controls="iconAccordionThree">
+                                                <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>&nbsp; FACT & DOCUMENTS</div>
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                
+                                    <div id="iconAccordionFive" class="collapse" aria-labelledby="headingThree5" data-parent="#iconsAccordion">
+                                        <div class="card-body">
+                                            <div class="row">                                                       
+                                                <div class="col-lg-11 mx-auto">
+                                                    <!-- <form name="add_name" id="add_name">                                                                 -->
+                                                        <h6>  Upload a single for each type of document as may be required </h6>                                                              
+                                                        <div class="mb-4-old mt-4"></div>
+                                                        <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="">Writ of Summons </label>
+                                                                        <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="writ_of_summon" id="writ_of_summon" accept="application/pdf, image/*">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="custom-file-container__image-preview" ></div>
+                                                                </div>
+                                                            </div>                                                                    
+                                                        <!-- </div> -->
+                                                        <hr/>
+                                
+                                                    <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Statement of Claim </label>
+                                                                    <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="statement_of_claim" id="statement_of_claim" accept="application/pdf, image/*">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="custom-file-container__image-preview" ></div>
+                                                            </div>
+                                                        </div>                                                                    
+                                                    <!-- </div> -->
+                                                    <hr/>
+                                
+                                                     <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="">Witness Statement on Oath </label>
+                                                                <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="witness_statement_on_oath" id="witness_statement_on_oath" accept="application/pdf, image/*">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="custom-file-container__image-preview" ></div>
+                                                        </div>
+                                                    </div>                                                                    
+                                                <!-- </div> -->
+                                                <hr/>  
+                                                    <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="">Affidavit </label>
+                                                                <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="affidavit" id="affidavit" accept="application/pdf, image/*">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="custom-file-container__image-preview" ></div>
+                                                        </div>
+                                                    </div>                                                                    
+                                                <!-- </div> -->
+                                                <hr/> 
+                                            <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="">Motion Exparte  </label>
+                                                            <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="motion_exparte" id="motion_exparte" accept="application/pdf, image/*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-file-container__image-preview" ></div>
+                                                    </div>
+                                                </div>                                                                    
+                                            <!-- </div> -->
+                                            <hr/>  
+                                            <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Statement of Defense</label>
+                                                        <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="statement_of_defense" id="statement_of_defense" accept="application/pdf, image/*">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="custom-file-container__image-preview" ></div>
+                                                </div>
+                                            </div>                                                                    
+                                            <!-- </div> -->
+                                            <hr/> 
+                                            <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Motion on Notice</label>
+                                                        <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="motion_on_notice" id="motion_on_notice" accept="application/pdf, image/*">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="custom-file-container__image-preview" ></div>
+                                                </div>
+                                            </div>                                                                    
+                                            <!-- </div> -->
+                                            <hr/> 
+                                            
+                                            <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Reply</label>
+                                                        <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="reply" id="reply" accept="application/pdf, image/*">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="custom-file-container__image-preview" ></div>
+                                                </div>
+                                            </div>                                                                    
+                                            <!-- </div> -->
+                                            <hr/>                                              
+                                            <!-- <div class="custom-file-container" data-upload-id="myFirstImage"> -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Written Address</label>
+                                                        <input type="file" class="custom-file-container__custom-file__custom-file-input form-control" name="written_address" id="written_address" accept="application/pdf, image/*">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="custom-file-container__image-preview" ></div>
+                                                </div>
+                                            </div>                                                                    
+                                            <!-- </div> -->
+                                            <hr/>   
+                                
+                                            <!-- </form> -->
+                                                </div>                                                        
+                                            </div>  
+                                            <span id="nextBt05" class="btn btn-dark btn-sm"><i class="fas fa-angle-double-down text-gray-200"></i> Save & Next</span>
+                                
+                                        </div>
+                                    </div>
+                                </div>                              
+                                
+                                <div class="card">
+                                    <div class="card-header" id="headingOne4">
+                                        <section class="mb-0 mt-0">
+                                            <div role="menu" class="d-sm-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#iconAccordionFour" aria-expanded="true" aria-controls="iconAccordionOne">
+                                                <div class="accordion-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>&nbsp; NATURE OF CLAIM </div>
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                
+                                    <div id="iconAccordionFour" class="collapse" aria-labelledby="headingOne4" data-parent="#iconsAccordion">
+                                        <div class="card-body">
+                                            <div class="row">                                                        
+                                                <div class="col-lg-11 mx-auto">
+                                                    <!-- <form id="" class=""> -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">                                                                        
+                                                                <div class="form-group">
+                                                                        <label for="email">Subject Matter</label>
+                                                                        <select id="mattertype" class="form-control mb-4-old" data-live-search="true" placeholder="Write your email here">
+                                                                            <option>Select matter type</option>
+                                                                            <option name="civil" value="civil">Civil</option>
+                                                                            <option name="criminal" value="criminal">Criminal</option>                                                               
+                                                                        </select>                                                               
+                                                                </div>                                                                   
+                                                            </div> 
+                                                        </div>                                   
+                                                        
+                                                        <div id="civildisplay" >
+                                                            <h6> Select Civil Matters, as many as possible</h6>
+                                                            <div class="row">                                                                         
+                                                                <div class="col-md-4"> 
+                                                                    <div class="widget-content widget-content-area">
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Warning
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Danger
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Secondary
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Dark
+                                                                                </label>
+                                                                            </div>
+                                
+                                
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4"> 
+                                                                    <div class="widget-content widget-content-area">
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Warning
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Danger
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Secondary
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Dark
+                                                                                </label>
+                                                                            </div>
+                                
+                                
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4"> 
+                                                                    <div class="widget-content widget-content-area">
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Warning
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Danger
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Secondary
+                                                                                </label>
+                                                                            </div>
+                                
+                                                                            <div class="n-chk">
+                                                                                <label class="new-control new-checkbox checkbox-dark">
+                                                                                    <input type="checkbox" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span>Dark
+                                                                                </label>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div id="criminaldisplay" >
+                                                            <h6 style="display:block !important;"> Select Criminal Matters, as many as possible</h6>
+                                                                <div class="row"> 
+                                                                        <div class="col-md-4"> 
+                                                                            <div class="widget-content widget-content-area">
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Warning
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Danger
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Secondary
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Dark
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <div class="col-md-4"> 
+                                                                        <div class="widget-content widget-content-area">
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Warning
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Danger
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Secondary
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Dark
+                                                                                    </label>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4"> 
+                                                                        <div class="widget-content widget-content-area">
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Warning
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Danger
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Secondary
+                                                                                    </label>
+                                                                                </div>
+                                
+                                                                                <div class="n-chk">
+                                                                                    <label class="new-control new-checkbox checkbox-dark">
+                                                                                        <input type="checkbox" class="new-control-input">
+                                                                                        <span class="new-control-indicator"></span>Dark
+                                                                                    </label>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <span id="nextBt04" class="btn btn-dark btn-sm"><i class="fas fa-angle-double-down text-gray-200"></i> Save</span>                                               
+                                                    <!-- </form> -->
+                                                </div>
+                                            </div>																								
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form.errors }}
+
+
+                            </div>
+                            <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </div>                   
+
+                    
+
+        
+
+
+
+
+                </div>  
+            </div>  
+        </div>
+        <div class="card-footer">
+            <div class="row">                    
+                <div class="col-lg-6">
+                    <input type="submit" id="" class="btn btn-block btn-secondary" value="Save All Information" />
+                </div>            
+                <div class="col-lg-6">                
+                    <a id="multiple-messages" href="{% url 'matter' %}" class="btn btn-block btn-warning text-black">Cancel All Information</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %} {% block footerjs %}
+<!-- ENDS SCRIPTS -->
+
+
+<script src="{% static 'vendor/dropify/dropify.min.js' %}"></script>
+<script src="{% static 'vendor/blockui/jquery.blockUI.min.js ' %}"></script>
+<script src="{% static 'vendor/tagInput/tags-input.js' %}"></script>
+<script src="{% static 'assets/js/users/account-settings.js ' %}"></script>
+<!--  END CUSTOM SCRIPTS FILE  -->
+<script src="{% static 'vendor/bootstrap-select/bootstrap-select.min.js ' %}"></script>
+<!-- <script src="{% static 'assets/js/components/ui-accordions.js ' %}"></script> -->
+<!-- END PAGE LEVEL SCRIPTS --> 
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+<script src="{% static 'assets/js/scrollspyNav.js ' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js ' %}"></script>
+<script src="{% static 'vendor/select2/custom-select2.js ' %}"></script>
+<script src="{% static 'vendor/file-upload/file-upload-with-preview.min.js ' %}"></script>
+<!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        var i = 1;
+
+        $("#addOtherParties").click(function(){
+        i++;
+        // $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="assoc_contact[]" placeholder="Search & select contact" class="form-control name_list"/></td><td><input type="text" name="new_contact[]" placeholder="Enter your Email" class="form-control name_email"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>'); 
+        // $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" class="form-control" name="relationship[]" placeholder="What is the relationship with client" /></td><td><input type="text" name="assoc_contact[]" placeholder="Search & select contact" class="form-control name_list"/><td><button id="btn-add-notes" name="new_contact[]" class="btn btn-success form-control new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>'); 
+        var gg = '<td><select class="selectpicker form-control" style="display:block !important;" data-live-search="true" name="assoc_contact[]"><option>Search & select Contact</option><option>Burger, Shake and a Smile</option><option>Sugar, Spice and all things nice</option></select></td><td><button id="btn-add-notes" name="new_contact[]" class="btn btn-success form-control new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>';            
+        $('#other_parties').append('<tr id="row'+i+'"><td><input type="text" class="form-control" name="relationship[]" placeholder="What is the relationship with client" /></td>'+ gg );
+
+        });
+
+        $("#addAdverseParties").click(function(){
+        i++;
+        var gg = '<td><select class="placeholder js-states form-control" name="ad_parties[]><option>Choose...</option><option value="one">First</option><option value="two">Second</option><option value="three">Third</option><option value="four">Fourth</option><option value="five">Fifth</option></select></td><td><button id="btn-add-notes" name="new_contact[]" class="btn btn-success form-control new_contact" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</button></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>';            
+        $('#adverse_parties').append('<tr id="row'+i+'">'+ gg );
+
+        });
+
+        $("#addOtherFiles").click(function(){
+        i++;
+        var gg = '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>';            
+        $('#other_files').append('<tr id="row'+i+'"><td><input type="text" class="form-control" name="relationship[]" placeholder="What is the relationship with client" /></td>'+ gg );
+
+        });
+
+        $(document).on('click', '.btn_remove', function(){  
+        var button_id = $(this).attr("id");   
+        $('#row'+button_id+'').remove();  
+        });
+
+        $(".placeholder").select2({
+            placeholder: "Make a Selection",
+            allowClear: true
+        });
+
+
+        $("#submit").on('click',function(){
+        var formdata = $("#add_name").serialize();
+        $.ajax({
+            url   :"action.php",
+            type  :"POST",
+            data  :formdata,
+            cache :false,
+            success:function(result){
+            alert(result);
+            $("#add_name")[0].reset();
+            }
+        });
+        });
+
+        $(function() {
+            $('#civildisplay').hide(); 
+            $('#criminaldisplay').hide();
+            $('#mattertype').change(function(){
+                if($('#mattertype').val() == 'civil') {
+                    $('#civildisplay').show(); 
+                    $('#criminaldisplay').hide();
+                } else if($('#mattertype').val() == 'criminal'){
+                    $('#civildisplay').hide(); 
+                    $('#criminaldisplay').show(); 
+                }else{
+                    $('#civildisplay').hide(); 
+                    $('#criminaldisplay').hide();
+                } 
+            });
+        });
+
+
+        $(document).on('click', '#nextBt01', function(){  
+            // var button_id = $(this).attr("id");   
+            $('#iconAccordionOne').removeClass("show"); 
+            $('#iconAccordionTwo').addClass("show");  
+            // console.log('Heyyyy');
+            });
+
+            $(document).on('click', '#nextBt02', function(){  
+            // var button_id = $(this).attr("id");   
+            $('#iconAccordionTwo').removeClass("show"); 
+            $('#iconAccordionThree').addClass("show");  
+            // console.log('Heyyyy');
+            });
+
+            $(document).on('click', '#nextBt03', function(){  
+            // var button_id = $(this).attr("id");   
+            $('#iconAccordionThree').removeClass("show"); 
+            $('#iconAccordionFive').addClass("show");  
+            // console.log('Heyyyy');
+            }); 
+
+            $(document).on('click', '#nextBt05', function(){  
+            // var button_id = $(this).attr("id");   
+            $('#iconAccordionFive').removeClass("show"); 
+            $('#iconAccordionFour').addClass("show");  
+            // console.log('Heyyyy');
+            });
+
+            $(document).on('click', '#nextBt04', function(){  
+            // var button_id = $(this).attr("id");   
+            $('#iconAccordionFour').removeClass("show");  
+            // console.log('Heyyyy');
+            });            
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

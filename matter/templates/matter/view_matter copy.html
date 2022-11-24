@@ -1,0 +1,479 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+
+    
+    <!--  END CUSTOM STYLE FILE  -->
+    {% endblock header %} 
+    
+    
+    {% block content %}
+<!----- cut off ---->
+            <!-- Page Heading -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Matter Viewer</h4>
+                        <div class="m-l-10">
+                            <a id="btn-add-notes" class="btn btn-secondary btn-sm" href="{% url 'matter' %}">
+                            <i class="fas fa-plus-circle">
+                            </i> Matter List</a>
+                        </div>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Matter</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Viewer
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Matter Viewer</h6>
+                    </div>
+                    <form class="" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+            
+                            <div class="card-body">        
+                                <div class="account-settings-container layout-top-spacing">        
+                                    <div class="row">
+                                        <div class="col-lg-12 layout-spacing">
+                                            <!-- <div class="statbox widget box box-shadow"> -->
+                                            <div class="widget-content widget-content-area">    
+                                                <div class="row">                               
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">File Information</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyName">File Number</label><br/>
+                                                                                    <span for="companyName">{{MatterInfor.file_no}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Client Full Name</label><br/>
+                                                                                    <span for="companyAddress">{{MatterInfor.client_contact}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyName">Case/Suit No</label><br/>
+                                                                                    <span for="companyName">
+                                                                                        {% if MatterInfor.claim_no %}
+                                                                                            {{MatterInfor.claim_no}} 
+                                                                                        {% else %}
+                                                                                            Nil <small class="text-danger">(This is required!)</small>
+                                                                                        {% endif %}                                                                         
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyName">Subject Matter</label><br/>
+                                                                                    <span for="companyName">{{MatterInfor.title}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Date Created </label><br/>
+                                                                                    <span for="companyAddress">{{MatterInfor.created}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Last Updated</label><br/>
+                                                                                    <span for="companyAddress">{{MatterInfor.updated}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Attorney</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Originating Attorney</label><br/>
+                                                                                    <span for="companyAddress">{{Attorney.originating_attorney}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Referrer</label><br/>
+                                                                                    <span for="companyAddress">{{Attorney.referrer}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Supervising Attorney</label><br/>
+                                                                                    <span for="companyAddress">{{attorney}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Matter Conflict - Other Party</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyName">Relationship</label><br/>                                                                        
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="companyAddress">Other Party</label><br/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% for ConflictOtherParty in ConflictOtherParties %}
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <span for="companyName">{{ConflictOtherParty.other_party_relationship}}</span>                                                                       
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <span for="companyName">{{ConflictOtherParty.other_party}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Matter Conflict - Adverse Party</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            {% for ConflictAdverseParty in ConflictAdverseParties %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <span for="companyName">{{ConflictAdverseParty.adverse_party}}</span>                                                                       
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endfor %} 
+                                                                        </div>                                                                                                                      
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Other Associated File Names</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            {% for ConflictAssocFile in ConflictAssocFiles %}                                                            
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <span for="companyName">{{ConflictAssocFile.associated_other_files}}</span>                                                                       
+                                                                                    </div>
+                                                                                </div>                                                            
+                                                                            {% endfor %}
+                                                                        </div>                                                          
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Facts and Documents</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            
+                                                                            {% if Document.writ_of_summon %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Writ of Summons</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                                
+                                                                                            Writ of Summons 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.writ_of_summon}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.writ_of_summon }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                                                                                           
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+            
+                                                                            {% if Document.statement_of_claim %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Statement of Claim</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                                
+                                                                                            Statement of Claim 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.statement_of_claim}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.statement_of_claim }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+            
+                                                                            {% if Document.witness_statement_on_oath %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Witness Statement on Oath 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.witness_statement_on_oath}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.witness_statement_on_oath }}" download><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %} 
+            
+                                                                            {% if Document.affidavit %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Affidavit 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.affidavit}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.affidavit }}" download><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %} 
+            
+                                                                            {% if Document.motion_exparte %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Witness Statement on Oath 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.motion_exparte}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.motion_exparte }}" download><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %} 
+                          
+                                                                            {% if Document.statement_of_defense %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Statement of Defense 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.statement_of_defense}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.statement_of_defense }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                 
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+            
+                                                                            {% if Document.reply %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Reply 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.reply}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.reply }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                 
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            
+                                                                            {% if Document.written_address %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Written Address 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.written_address}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.written_address }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                 
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            
+                                                                            {% if Document.motion_on_notice %}
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <!-- <label for="companyAddress">Witness Statement on Oath</label><br/> -->
+                                                                                        <span for="companyAddress">                                                                            
+                                                                                            Motion on Notice 
+                                                                                            <a class="viewDocument" style="color:rgb(32, 68, 136);" data-id="{{Document.motion_on_notice}}" data-toggle="modal" data-target="#viewDocument" href="#">&nbsp;<i class="far fa-eye"></i>&nbsp;&nbsp;</a> 
+                                                                                            <a style="color:rgb(7, 107, 85);" href="../../media/{{ Document.motion_on_notice }}" download><i class="fas fa-cloud-download-alt"></i></a>                                                                                                                                                 
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}     
+                                                                            
+                                                                           
+                                                                        </div>                                                           
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Nature of Claim</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            {% for nature in natureCriminalSample %}                                                            
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <span for="companyName">{{nature}}</span>                                                                       
+                                                                                    </div>
+                                                                                </div>                                                            
+                                                                            {% endfor %}  
+                                                                        </div>                                                         
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+            
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                                        <div id="work-" class="section work-platforms_xxx contact">
+                                                            <div class="card info">
+                                                                <h6 class="">Claim Descriptions</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-11 mx-auto">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <!-- <label for="companyAddress">Description</label><br/> -->
+                                                                                    <span for="description">{{Description}}</span>
+                                                                                </div>
+                                                                            </div>                                                               
+                                                                        </div>                                                           
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>                    
+                                    </div>  
+                                </div>  
+                            </div>
+                        <div class="card-footer">
+                            <div class="row">                    
+                                <div class="col-lg-4">
+                                    <a name="updateMatter" id="updateMatter" class="btn btn-block btn-warning text-black " href="#" > Update Matter </a>
+                                </div>  
+                                <div class="col-lg-4">                
+                                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-block btn-secondary">Back to Previous Page</a>
+                                    <!-- <button class="btn btn-block btn-secondary backToContactList" onclick="history.back()">Back to Previous Page</button> -->
+                                </div>          
+                                <div class="col-lg-4">                
+                                    <a id="backToContactList" class="btn btn-block btn-warning text-black backToContactList" href="{% url 'matter' %}">Back to Matter List</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>  
+
+            </div>
+
+         
+     
+
+    <div class="modal fade" id="viewDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="documentModalLabel">Document Viewer</h6>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="card-body col-12 text-center"> 
+                    <img src="" id="document-show" />                   
+                </div> 
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                    <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                    <button class="btn btn-success btn-sm" type="button" data-dismiss="modal">Print</button>
+                    <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+    <script>
+        
+        $(document).ready(function() {
+
+    // fill_person_contact_table();
+    
+            $('#viewDocument').on('shown.bs.modal', function(e) {  
+                var reference_tag = $(e.relatedTarget); 
+                var docURL = reference_tag.data('id');
+                var fullURL = '../../media/'+docURL;
+                // var usid = <?php echo $usid; ?>; 
+                // console.log(fsid) ; 
+                $('img#document-show').attr('src', fullURL);
+
+            });
+
+
+        });
+    
+    
+    </script>
+    {% endblock footerjs %}

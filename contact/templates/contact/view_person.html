@@ -1,0 +1,373 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+    
+    
+    {% block header %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/dropify/dropify.min.css' %}">
+    <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-select/bootstrap-select.min.css' %}">
+    <!-- <link href="assets/css/components/tabs-accordian/custom-accordions.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css"> -->
+    <link href="{% static 'vendor/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css' %}" />
+
+    <!--  END CUSTOM STYLE FILE  -->
+    {{ form.media }}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+<!----- cut off ---->
+            <!-- Page Heading -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Contact Viewer</h4>
+            <div class="ms-auto text-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"> Person</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Contact
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container-fluid">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Person: Contact Viewer</h6>
+            </div>
+    
+            <div class="card-body">        
+                <div class="account-settings-container layout-top-spacing">        
+                    <div class="row">
+                        <div class="col-lg-12 layout-spacing">
+                            <!-- <div class="statbox widget box box-shadow"> -->
+                            <div class="widget-content widget-content-area">    
+                                <div class="row">                               
+                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <div id="general-info" class="section general-info">
+                                            <div class="info">
+                                                <h6 class="">General Information</h6>
+                                                <div class="row">
+                                                    <div class="col-lg-11 mx-auto">
+                                                        <div class="row">
+                                                            <div class="col-xl-2 col-lg-12 col-md-4">
+                                                                <div class="upload mt-4 pr-md-4"> 
+                                                                    <img type="file" src="../../media/{{person_contact.personPix}}" width="100" />
+                                                                    <!-- <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p> -->
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
+                                                                <div class="form" style="width: 100%;">
+                                                                    <div class="row">
+                                                                        <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="firstName">First Name</label><br/>
+                                                                                <span for="firstName">{{person_contact.firstName}}</span>                                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="familyName">Family Name</label><br/>
+                                                                                <span for="familyName">{{person_contact.familyName}}</span>                                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>                                                                         
+                                                                </div>
+                            
+                                                                <div class="form" style="width: 100%;">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="otherName">Other Name(s)</label><br/>
+                                                                                <span for="otherName">{{person_contact.otherName}}</span>                                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="sex">Sex</label><br/>
+                                                                                <span for="sex">{{person_contact.sex}}</span>  
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form" style="width: 100%;">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="maritalStatus">Marrital Status</label><br/>
+                                                                                <span for="maritalStatus">{{person_contact.maritalStatus}}</span>  
+                                                                            </div>
+                                                                        </div>                                                                                            
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <label for="dob">Date of Birth</label><br/>
+                                                                                <span for="dob">{{person_contact.dob}}</span>
+                                                                            </div>
+                                                                        </div>
+                            
+                                                                    </div>                                                                                        
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <div id="contact" class="section contact">
+                                            <div class="info">
+                                                <h5 class="">Contact</h5>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <label for="homeAddress">Home Address</label><br/>
+                                                                    <span for="homeAddress">{{person_contact.homeAddress}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">                                                                        
+                                                                    <label for="homeState">State</label><br/>
+                                                                    <span for="homeState">{{person_contact.homeState}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="homeCountry">Country</label><br/>
+                                                                    <span for="homeCountry">{{person_contact.homeCountry}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <label for="contactAddress">Contact Address</label><br/>
+                                                                    <span for="contactAddress">{{person_contact.contactAddress}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactState">State</label><br/>
+                                                                    <span for="contactState">{{person_contact.contactState}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="contactCountry">Country</label><br/>
+                                                                    <span for="contactCountry">{{person_contact.contactCountry}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nationality">Nationality</label><br/>
+                                                                    <span for="nationality">{{person_contact.nationality}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="language">Language(s) Spoken (seperate with comma)</label><br/>
+                                                                    <span for="language">{{person_contact.language}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="firstPhone">Phone1</label><br/>
+                                                                    <span for="firstPhone">{{person_contact.firstPhone}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="secondPhone">Phone2</label><br/>
+                                                                    <span for="secondPhone">{{person_contact.secondPhone}}</span>
+                                                                </div>
+                                                            </div>                                                                               
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="email">Email</label><br/>
+                                                                    <span for="email">{{person_contact.email}}</span>
+                                                                </div>
+                                                            </div>                                    
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="website">Website</label><br/>
+                                                                    <span for="website">{{person_contact.website}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <div id="work-platforms" class="section work-platforms_xxx contact">
+                                            <div class="card info">
+                                                <h5 class="">Occupation</h5>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                    <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="companyName">Company Name</label><br/>
+                                                                    <span for="companyName">{{person_contact.companyName}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="companyAddress">Office Address</label><br/>
+                                                                    <span for="companyAddress">{{person_contact.companyAddress}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="companyPhone">Office Phone</label><br/>
+                                                                    <span for="companyPhone">{{person_contact.companyPhone}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="jobTitle">Job Title</label><br/>
+                                                                    <span for="jobTitle">{{person_contact.jobTitle}}</span>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="companyEmail">Office Email</label><br/>
+                                                                    <span for="companyEmail">{{person_contact.companyEmail}}</span>
+                                                                </div>
+                                                            </div>                                    
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="companyWebsite">Company Website</label><br/>
+                                                                    <span for="companyWebsite">{{person_contact.companyWebsite}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="platform-div">                                                                               
+                                                            <div class="form-group">
+                                                                <label for="companyDescription">Description</label><br/>
+                                                                <span for="companyDescription">{{person_contact.companyDescription}}</span>
+                                                            </div>
+                                                        </div>
+                                    
+                                                    </div>
+                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <div id="edu-experience" class="section edu-experience">
+                                            <div class="info">
+                                                <h5 class="">Education</h5>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">                            
+                                                        <div class="edu-section">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="highestEducation">Highest Level of Education Obtained</label><br/>
+                                                                        <span for="highestEducation">{{person_contact.highestEducation}}</span>                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="schoolName">Name of School</label><br/>
+                                                                        <span for="schoolName">{{person_contact.schoolName}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="dateGraduated">Date</label><br/>
+                                                                        <span for="dateGraduated">{{person_contact.dateGraduated}}</span>
+                                                                    </div>
+                                                                </div>
+                                    
+                                                                <div class="col-md-12">
+                                                                    <label for="educationDescription">Comment</label><br/>
+                                                                    <span for="educationDescription">{{person_contact.educationDescription}}</span>
+                                                                </div>
+                                    
+                                                            </div>
+                                                            
+                                                        </div>
+                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>  
+                </div>  
+            </div>
+            <div class="card-footer">
+                <div class="row">                    
+                    <div class="col-lg-4">
+                        <a name="updatePersonalContact" id="updatePersonalContact" class="btn btn-block btn-warning text-black " href="{% url 'update-person' person_contact.id %}" > Update Information </a>
+                    </div>  
+                    <div class="col-lg-4">                
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-block btn-secondary">Back to Previous Page 1</a>
+                        <!-- <button class="btn btn-block btn-secondary backToContactList" onclick="history.back()">Back to Previous Page</button> -->
+                    </div>          
+                    <div class="col-lg-4">                
+                        <a id="backToContactList" class="btn btn-block btn-warning text-black backToContactList" href="{% url 'person-contact' %}">Back to Contact List</a>
+                    </div>
+                </div>
+            </div>
+                
+            <!-- </form> -->
+        </div> 
+
+      </div>
+ 
+      
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <script src="{% static 'vendor/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'vendor/blockui/jquery.blockUI.min.js ' %}"></script>
+    <script src="{% static 'vendor/tagInput/tags-input.js' %}"></script>
+    <script src="{% static 'assets/js/users/account-settings.js ' %}"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'vendor/bootstrap-select/bootstrap-select.min.js ' %}"></script>
+    <!-- <script src="{% static 'assets/js/components/ui-accordions.js ' %}"></script> -->
+    <!-- END PAGE LEVEL SCRIPTS --> 
+        <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="{% static 'assets/js/scrollspyNav.js ' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js ' %}"></script>
+    <script src="{% static 'vendor/select2/custom-select2.js ' %}"></script>
+    <script src="{% static 'vendor/file-upload/file-upload-with-preview.min.js ' %}"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+    
+
+    {% endblock footerjs %}

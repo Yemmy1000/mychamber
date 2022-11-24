@@ -1,0 +1,109 @@
+{% extends 'main.html' %} 
+{% load static %} 
+    
+    
+    {% block header %}
+    {% include "headercss_extension.html" %}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Events</h1>                      
+                <a class="btn btn-primary btn-sm" id="addevent" href="{% url 'create-event' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Event</a>
+                <!-- <button > New event</button> -->
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3_xxx">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Event</h6> 
+                        <div>                  
+                            <a class="badge badge-secondary badge-sm p-2" id="addTask" href="{% url 'event' %}"><i class="fas fa-list text-gray-200"></i> List </a>
+                            <a class="badge badge-dark badge-sm p-2" id="addTask" href="{% url 'event-card' %}"><i class="far fa-credit-card text-gray-200"></i> Card </a>
+                            <a class="badge badge-secondary badge-sm p-2" id="addTask" href="{% url 'event-calendar'%}"><i class="fas far fa-calendar-alt text-gray-200"></i> Calendar </a>
+                        </div> 
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                
+              
+               
+                        {% for event in events %}
+                            {% if request.user == event.author %}
+                            <div class="col-lg-4">
+                                <!-- Dropdown Card Example -->
+                                <div class="card shadow mb-4 border-bottom-success">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">{{event.title}}</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Action:</div>
+                                                <a class="dropdown-item clsRemoveevent" data-id="{{event.id}}" data-toggle="modal" data-target="#vieweventModal" href="#">View</a>
+                                                <a class="dropdown-item clsUpdateevent" id="updateevent"  href="update-event/{{event.id}}">Update</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item clsDeleteevent" data-id="{{event.id}}" data-toggle="modal" data-target="#removeeventModal" href="#" style="color:red;">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        {{event.description|truncatewords:20}}
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-sm-flex align-items-center justify-content-between">
+                                            <div class="" style="font-size: 80%;">Created On: {{event.start_date}} </div>
+                                            <div class="" style="font-size: 80%;">Priority: {{event.priority}} </div>                                    
+                                            <!-- <button > New event</button> -->
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                            {% endif%} 
+                        {% empty %}
+            
+                            <p>There are no events for you.</p>
+            
+                        {% endfor %}   
+            
+            
+                            
+                        </div>
+
+
+
+
+                    
+                </div>
+            </div>
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!----- cut off ---->
+        <script>
+            
+            $(document).ready(function() {
+
+ 
+                
+      
+            });
+        
+        </script>
+
+    {% endblock footerjs %}

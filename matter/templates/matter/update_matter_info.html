@@ -1,0 +1,211 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block header %}  {% include "matter_form_headercss_extension.html" %}
+    <!--  END CUSTOM STYLE FILE  -->
+
+{% endblock header %} 
+
+{% block content %}
+<!----- cut off ---->
+<!-- <div class="layout-px-spacing"> -->
+
+    <div class="page-breadcrumb">
+        <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Update Matter</h4>
+            <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Update Matter</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Client Information
+                </li>
+                </ol>
+            </nav>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Steps</h6>
+                    </div>
+                    <div class="card-body-old">
+
+                        <ul class="list-style-none">
+                            <li class="d-flex no-block card-body" style="background: rgb(243, 242, 242); padding:0.5rem;">
+                            <i class="fas fa-play-circle fs-4 w-30px"></i>
+                            <div>
+                                <a href="#" class="mb-0 font-medium p-0">Matter Information</a>
+                            </div>
+                            </li>
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                            <i class="far fa-stop-circle fs-4 w-30px"></i>
+                            <div>
+                                <a href="#" class="mb-0 font-medium p-0">Matter Attorney</a>
+                            </div>
+                            </li>
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Conflict Info (Co-parties)</a>
+                                </div>
+                            </li>
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Conflict Info (Adverse Party)</a>
+                                </div>
+                            </li>
+
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Conflict Info (Other Name)</a>
+                                </div>
+                            </li>
+
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Fact & Documents</a>
+                                </div>
+                            </li>
+
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Nature of Claim (Civil)</a>
+                                </div>
+                            </li>
+
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Nature of Claim (Criminal}</a>
+                                </div>
+                            </li>
+
+                            <li class="d-flex no-block card-body border-top" style="padding:0.5rem;">
+                                <i class="far fa-stop-circle fs-4 w-30px"></i>
+                                <div>
+                                <a href="#" class="mb-0 font-medium p-0">Description</a>
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-9">
+                <div class="card shadow mb-4-old">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Client Contact</h6>
+                    </div>
+                    <form class="" action="" method="POST">
+                        {% csrf_token %}
+                       
+                        <div class="card-body">    
+        
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="author" class="form-control mb-4" id="author" value="{{user.id}}" >
+                                    <div class="form-group">
+                                        {{form.file_no|as_crispy_field}}
+                                    </div>
+                                </div>
+        
+                                <div class="col-md-8">
+                                    {{form.client_contact|as_crispy_field}}
+                                </div>
+                                <span for="companyAddress">{{Client.client_contact}}</span>
+        
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="website1">Is Contact not found?</label><br/>
+                                        <a id="btn-add-notes" class="btn btn-dark btn-sm" href="#"><i class="fas far fa-edit text-gray-200"></i> Add Contact</a>
+                                    </div>
+                                </div> -->
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        {{form.title|as_crispy_field}}
+                                    </div>
+    
+                                </div>
+    
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        {{form.claim_no|as_crispy_field}}
+                                    </div>
+    
+                                </div>
+        
+                            </div>
+                            {{ form.errors }}
+        
+                            <br/>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">                    
+                                <div class="col-lg-6">
+                                    <input type="submit" id="" class="btn btn-block btn-secondary" value="Save & Continue..." />
+                                </div>            
+                                <div class="col-lg-6">                
+                                    <a id="multiple-messages" href="{% url 'matter' %}" class="btn btn-block btn-warning text-black">Cancel All Information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+{% endblock content %} {% block footerjs %}
+<!-- ENDS SCRIPTS -->
+
+
+{% include  "matter_form_footercss_extension.html" %}
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+ 
+
+
+        
+       
+    });
+
+
+
+</script>
+
+
+
+
+
+  {% endblock footerjs %}

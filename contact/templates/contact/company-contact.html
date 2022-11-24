@@ -1,0 +1,83 @@
+{% extends 'main.html' %} 
+{% load i18n static %}
+    {% block header %}
+        {% include "headercss_extension.html" %}
+        
+
+    <script type="text/javascript">
+        var PERSON_CONTACT_LIST_JSON_URL = '{% url "person_contact_json" %}';
+        // translations for datatables
+
+        var dt_language = {
+            "emptyTable":     "{% trans "No data available in table" %}",
+            "info":           "{% trans "Showing _START_ to _END_ of _TOTAL_ entries" %}",
+            "infoEmpty":      "{% trans "Showing 0 to 0 of 0 entries" %}",
+            "infoFiltered":   "{% trans "(filtered from _MAX_ total entries)" %}",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "{% trans "Show _MENU_ entries" %}",
+            "loadingRecords": "{% trans "Loading..." %}",
+            "processing":     "{% trans "Processing..." %}",
+            "search":         "{% trans "Search:" %}",
+            "zeroRecords":    "{% trans "No matching records found" %}",
+            "paginate": {
+                "first":      "{% trans "First" %}",
+                "last":       "{% trans "Last" %}",
+                "next":       "{% trans "Next" %}",
+                "previous":   "{% trans "Previous" %}"
+            },
+            "aria": {
+                "sortAscending":  "{% trans ": activate to sort column ascending" %}",
+                "sortDescending": "{% trans ": activate to sort column descending" %}",
+            }
+        }
+    </script>
+    {% endblock header %} 
+    
+    {% block content %}
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Company Contact</h1>                      
+                    <div>
+                        <a class="btn btn-outline-dark ml-2 mr-5" id="addCompanyContact" href="{% url 'create-company' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> New Company</a>
+                    </div>
+                </div>
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Contact</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered datatable" id="personContactdataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <th>{% trans "Avatar" %}</th>
+                                        <th>{% trans "First Name" %}</th>
+                                        <th>{% trans "Family Name" %}</th>
+                                        <th>{% trans "Home Address" %}</th>
+                                        <th>{% trans "Phone" %}</th>
+                                        <th>{% trans "Action" %}</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+    {% endblock content %} 
+
+
+
+    {% block footerjs %}
+        
+        <!----- cut off ---->
+        <script src="{% static 'js/person_contact_list_json.js' %}"></script>
+
+    {% endblock footerjs %}
+
+
+    

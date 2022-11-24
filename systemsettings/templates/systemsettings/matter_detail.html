@@ -1,0 +1,124 @@
+{% extends 'main.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+    
+    
+    {% block header %}
+    {#% include "headercss_extension.html" %#}
+    {% endblock header %} 
+    
+    
+    {% block content %}
+
+            <!-- Page Heading -->
+
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">System Settings</h4>
+                        <a class="btn btn-sm btn-secondary m-l-5" href="{% url 'system-settings-home' %}"><span>System Settings</span></a>
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Activities</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Logs
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container-fluid">
+
+
+ 
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">What's happening</h6>
+                    </div>
+                    <div class="card-body">        
+                        <div class="account-settings-container layout-top-spacing">        
+                            <div class="row">
+                                <div class="col-md-11 mx-auto">
+                                    <!-- <h2></h2> -->
+                                    <div class="activity">                
+                                        <div class="info">
+                                            {% for mat in matter %}                    
+                                                {% with user=activity.user %}
+                                                    <p>
+                                                        {{mat.file_no}}
+                                                        
+                                                    </p>
+                                                {% endwith %}
+                                            {% endfor %}
+                    
+                                        </div>
+                                    </div>
+
+
+                                </div> 
+                            </div>  
+                        </div> 
+
+                    </div>
+                </div> 
+
+                <div class="modal fade" id="editMatterSample" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Record?</h5>
+                                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form class="formRemoveRec" id="UpdateForm" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="modal-body ">                            
+                                    <div class="card-body col-12"> 
+                                        <!-- <p>Are you sure you want to delete Record?</p>          -->
+                                        <input type="hidden" class="form-control" name="pk" id="pk_"/>
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title_"/>
+                                        <label for="description">Matter Description</label>
+                                        <textarea name="description" class="form-control" id="description_" cols="" rows="3"></textarea>
+        
+                                        <!-- <input type="hidden" name="rec_key" id="rec_key" /> -->
+                                    </div>                                                  
+                                </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                <!-- <a class="btn btn-danger" href="#">Remove!</a> --->
+                                <button class="btn btn-secondary" id="btn-editSample" type="button" data-dismiss="modal">Save Edit</button>
+                                <!--<input class="btn btn--main" type="submit" value="Confirm" />--->
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+    {% endblock content %} 
+    
+    
+    
+    {% block footerjs %}
+    <!----- cut off ---->
+<script>
+            
+    $(document).ready(function() {
+
+
+
+    });
+        
+</script>
+
+    {% endblock footerjs %}
